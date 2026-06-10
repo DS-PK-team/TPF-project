@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../services/authService';
 
 export default function LoginView() {
@@ -117,9 +117,9 @@ export default function LoginView() {
         <footer className="text-center pt-md border-t border-surface-variant">
           <p className="font-body text-body-md text-on-surface-variant">
             New to the vault?{' '}
-            <a href="#" className="font-body text-label-md text-primary hover:text-primary-container transition-colors">
+            <Link to="/register" className="font-body text-label-md text-primary hover:text-primary-container transition-colors">
               Create an account
-            </a>
+            </Link>
           </p>
         </footer>
       </main>

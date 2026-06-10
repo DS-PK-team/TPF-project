@@ -43,6 +43,7 @@ d:\PolitechnikaKrakowska\TPF\TPF tmp\
 │   │   └── UploadZone.md
 │   └── views/                         ← Opisy widoków, logika, routing
 │       ├── LoginView.md
+│       ├── RegisterView.md            ← (opcjonalnie; widok zaimplementowany w src/)
 │       ├── ArchiveView.md
 │       ├── UploadView.md
 │       ├── ProcessingView.md
@@ -71,7 +72,8 @@ d:\PolitechnikaKrakowska\TPF\TPF tmp\
 
 ```
 /              → LoginView
-/archive       → ArchiveView (domyślny widok po zalogowaniu)
+/register      → RegisterView (rejestracja konta)
+/archive       → ArchiveView (domyślny widok po zalogowaniu/rejestracji)
 /shared        → SharedView
 /upload        → UploadView (drag&drop + QR placeholder)
 /processing    → ProcessingView (animacja OCR)
@@ -173,6 +175,7 @@ DEFAULT: 4px   lg: 8px   xl: 12px   full: 9999px
 ```
 App (Router)
 ├── LoginView                     (brak nav)
+├── RegisterView                  (brak nav)
 ├── AppShell (SideNavBar + TopNavBar)
 │   ├── ArchiveView
 │   ├── SharedView
@@ -183,7 +186,7 @@ App (Router)
 ```
 
 **Shell Visibility Rule:**
-- Ekrany linearne/transakcyjne: `LoginView`, `SuccessView` → **brak SideNavBar i TopNavBar**
+- Ekrany linearne/transakcyjne: `LoginView`, `RegisterView`, `SuccessView` → **brak SideNavBar i TopNavBar**
 - Ekrany pośrednie: `ProcessingView` → brak TopNavBar (focus na animacji)
 - Ekrany główne: `ArchiveView`, `SharedView`, `UploadView`, `VerificationView` → pełny shell
 
@@ -200,6 +203,7 @@ src/
 │   └── UploadZone.tsx
 ├── views/
 │   ├── LoginView.tsx
+│   ├── RegisterView.tsx
 │   ├── ArchiveView.tsx
 │   ├── SharedView.tsx
 │   ├── UploadView.tsx
@@ -207,7 +211,7 @@ src/
 │   ├── VerificationView.tsx
 │   └── SuccessView.tsx
 ├── services/
-│   ├── authService.ts            ← camelCase dla serwisów
+│   ├── authService.ts            ← login(), register() — mocki setTimeout
 │   └── api/
 │       ├── documentsApi.ts
 │       └── authApi.ts
@@ -226,7 +230,9 @@ src/
 ## 9. Szybkie przypomnienie user flow
 
 ```
-Login → /archive
+Login ──→ /archive          Register ──→ /archive
+  ↑                              │
+  └──── "Create an account" ─────┘
         ↓ klik "New Document"
       /upload (drag&drop pliku lub QR)
         ↓ "Proceed"

@@ -12,3 +12,18 @@ export function login(_email: string, _password: string): Promise<User> {
     setTimeout(() => resolve({ ...MOCK_USER }), 800);
   });
 }
+
+/** Simulates a registration API call with 800ms delay. */
+export function register(name: string, email: string, _password: string): Promise<User> {
+  return new Promise((resolve) => {
+    setTimeout(
+      () =>
+        resolve({
+          id: 'user-1',
+          name,
+          email,
+        }),
+      800,
+    );
+  });
+}

@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AppShell from '../components/AppShell';
 import LoginView from '../views/LoginView';
+import RegisterView from '../views/RegisterView';
 import ArchiveView from '../views/ArchiveView';
 import SharedView from '../views/SharedView';
 import UploadView from '../views/UploadView';
@@ -15,6 +16,7 @@ export default function AppRouter() {
         {/* AppShell działa jako nadrzędny Layout, który decyduje o renderowaniu pasków nawigacji */}
         <Route element={<AppShell />}>
           <Route path="/" element={<LoginView />} />
+          <Route path="/register" element={<RegisterView />} />
           <Route path="/archive" element={<ArchiveView />} />
           <Route path="/shared" element={<SharedView />} />
           <Route path="/upload" element={<UploadView />} />

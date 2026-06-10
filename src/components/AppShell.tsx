@@ -33,7 +33,7 @@ export default function AppShell() {
     setTimeout(() => setSyncStatus('synced'), 2500);
   };
 
-  const isNoNavRoute = path === '/' || path === '/success';
+  const isNoNavRoute = path === '/' || path === '/register' || path === '/success';
   const isProcessingRoute = path === '/processing';
 
   if (isNoNavRoute) {
