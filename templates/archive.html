@@ -1,0 +1,374 @@
+<!-- Archive with New Nav -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Vault &amp; Vellum - Archive</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@500;600;700;900&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 20px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#794602",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffdcbd",
+                        "primary-fixed-dim": "#81d1f0",
+                        "on-primary-container": "#d3f1ff",
+                        "on-primary-fixed-variant": "#004d62",
+                        "on-primary-fixed": "#001f29",
+                        "on-surface": "#191c1e",
+                        "outline": "#6f787d",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container": "#eceef0",
+                        "on-surface-variant": "#3f484c",
+                        "surface-tint": "#006781",
+                        "tertiary-container": "#965e1c",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "outline-variant": "#bec8cd",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "secondary-container": "#d0e1fb",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "surface-variant": "#e0e3e5",
+                        "on-tertiary-container": "#ffe8d6",
+                        "primary": "#005a71",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#505f76",
+                        "primary-fixed": "#b9eaff",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary-fixed": "#0b1c30",
+                        "primary-container": "#0e7490",
+                        "inverse-primary": "#81d1f0",
+                        "tertiary-fixed-dim": "#ffb86f",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f7f9fb",
+                        "surface-container-high": "#e6e8ea",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface": "#f7f9fb",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-dim": "#d8dadc",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary-container": "#54647a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xl": "40px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "unit": "4px",
+                        "container-max": "1280px",
+                        "gutter": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Manrope"],
+                        "headline-sm": ["Manrope"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["30px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background text-on-surface font-body-lg text-body-lg flex h-screen overflow-hidden">
+    <!-- SideNavBar (JSON Component) -->
+    <nav
+        class="h-screen w-64 border-r rounded-none border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-[4px_0_12px_rgba(0,0,0,0.03)] flex flex-col h-full p-4 gap-2 z-50 shrink-0 hidden md:flex font-['Manrope'] text-sm font-semibold">
+        <!-- Header -->
+        <div class="flex items-center gap-3 mb-6 px-2 mt-2">
+            <div class="w-10 h-10 rounded-lg bg-cyan-700 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-white"
+                    style="font-variation-settings: &quot;FILL&quot; 1;">assured_workload</span>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-lg font-black text-slate-900 dark:text-white leading-tight">Document Vault</span>
+                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">Secure Storage</span>
+            </div>
+        </div>
+        <!-- CTA -->
+        <button
+            class="w-full bg-cyan-700 text-white rounded-lg py-2.5 px-4 mb-4 flex items-center justify-center gap-2 text-sm font-semibold hover:bg-cyan-800 transition-all active:opacity-80">
+            <span class="material-symbols-outlined text-[18px]">add</span>
+            New Document
+        </button>
+        <!-- Main Tabs -->
+        <div class="flex-1 flex flex-col gap-1">
+            <a class="bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-400 rounded-lg flex items-center gap-3 px-3 py-2.5 transition-all active:opacity-80"
+                href="#">
+                <span class="material-symbols-outlined"
+                    style="font-variation-settings: &quot;FILL&quot; 1;">inventory_2</span>
+                Archive
+            </a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-lg flex items-center gap-3 px-3 py-2.5 transition-all active:opacity-80"
+                href="#">
+                <span class="material-symbols-outlined">upload_file</span>
+                Upload
+            </a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-lg flex items-center gap-3 px-3 py-2.5 transition-all active:opacity-80"
+                href="#">
+                <span class="material-symbols-outlined">group</span>
+                Shared
+            </a>
+        </div>
+        <!-- Footer Tabs -->
+        <div class="flex flex-col gap-1 pt-4 border-t border-slate-100 dark:border-slate-800">
+            <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-lg flex items-center gap-3 px-3 py-2.5 transition-all active:opacity-80"
+                href="#">
+                <span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+
+            <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-lg flex items-center gap-3 px-3 py-2.5 transition-all active:opacity-80"
+                href="#">
+                <span class="material-symbols-outlined">logout</span>
+                Log Out
+            </a>
+            <!-- Status Indicator -->
+            <div class="mt-4 px-3 flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                <span class="text-[11px] font-semibold text-slate-500 dark:text-slate-400">All files synced</span>
+            </div>
+        </div>
+    </nav>
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-background">
+        <!-- TopNavBar (JSON Component adapted for main area) -->
+        <header
+            class="flex justify-between items-center px-6 py-3 w-full sticky top-0 z-40 bg-surface-container-lowest border-b border-surface-dim flat no shadows active:scale-95 duration-150">
+            <!-- Search Bar on Left -->
+            <div class="flex-1 flex items-center">
+                <div class="relative w-full max-w-md">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+                    <input
+                        class="w-full bg-surface border border-outline-variant rounded-lg py-2 pl-10 pr-4 font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                        placeholder="Search archive..." type="text">
+                </div>
+            </div>
+            <!-- Trailing Icon Actions -->
+            <div class="flex items-center gap-4">
+                <button
+                    class="text-on-surface-variant hover:bg-surface-container-high rounded-full p-2 transition-colors flex items-center justify-center">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button
+                    class="text-on-surface-variant hover:bg-surface-container-high rounded-full p-2 transition-colors flex items-center justify-center">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+                <div class="w-8 h-8 rounded-full bg-surface-dim overflow-hidden ml-2 border border-outline-variant">
+                    <img alt="User avatar" class="w-full h-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfReV1CJO7_-BbZeHcfPcWr-F2aHsBh4reua_4M_U7nQJ3kKNrCQVaccWO3w8RkZJQdHHTMmsZGZ43xh-irE0EHNhZcOhy6wYhSnVA9Zzk-JzNnA-TK6UHVDQn3tVUCdCdbWjuaFGsD51fFWzUCptrL5aAqXMQrFg1l__teIOVMsGTHHUTJOPVk2DqQbcdduIZqrTUvDyr1fv3Z-X86ohqs9lM2a4ADbfflHVvCwtHfwS_5bx0lMUEPJzn-br9y5mFvfEHG26vQnbV">
+                </div>
+            </div>
+        </header>
+        <!-- Canvas -->
+        <div class="flex-1 overflow-y-auto p-xl">
+            <div class="max-w-container-max mx-auto w-full">
+                <!-- Page Header & Filters -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+                    <div>
+                        <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Archive</h1>
+                        <p class="font-body-md text-body-md text-on-surface-variant mt-1">Browse and manage your
+                            securely stored documents.</p>
+                    </div>
+                    <div class="flex items-center gap-sm flex-wrap">
+                        <!-- Filter Chips -->
+                        <button
+                            class="px-4 py-1.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm shadow-sm">All
+                            Files</button>
+                        <button
+                            class="px-4 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm transition-colors border border-outline-variant">Invoices</button>
+                        <button
+                            class="px-4 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm transition-colors border border-outline-variant">Contracts</button>
+                        <!-- Date Filter Dropdown -->
+                        <button
+                            class="ml-2 px-3 py-1.5 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface flex items-center gap-2 font-label-sm text-label-sm hover:bg-surface-container-low transition-colors">
+                            <span class="material-symbols-outlined text-[16px]">calendar_month</span>
+                            Any Date
+                            <span class="material-symbols-outlined text-[16px]">arrow_drop_down</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Document Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-lg">
+                    <!-- Card 1 -->
+                    <div
+                        class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] border border-outline-variant/30 overflow-hidden flex flex-col group hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-shadow duration-200">
+                        <div
+                            class="aspect-[4/3] bg-surface-container-low relative overflow-hidden border-b border-outline-variant/20">
+                            <img class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                                data-alt="high resolution scan of a modern business invoice with clear typography and minimalist layout, bright lighting"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdA0yOmTs5GNmsaLU4q1Bn0pArkFhJclD585A-CZ7uh56xjqCbzI-jpwVodVKOiEmAr7Ej_G6btrBb7t96ylYTEXT_V7npNTZUiG1mU-Ch-9YNzoXuqUK6kyZ96lDJ563zPEo334t7JO6fZaw2KBe3PG9bue2ng80RCfDunecrxHTVDOzd-yLxLHRBJZ9wK6X0YwNPJkSJzq2KTA0V0Q4S5nfGQ2DpBR9Aqa8GiHcSUa1xGKJdZksPbxfqyiMnaiM_Z6enb5YHPV9l">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                            </div>
+                        </div>
+                        <div class="p-4 flex flex-col gap-2 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <h3 class="font-body-md text-body-md font-semibold text-on-surface line-clamp-1"
+                                    title="Q3 Marketing Retainer Invoice">Q3 Marketing Retainer Invoice</h3>
+                                <button class="text-outline hover:text-primary transition-colors shrink-0">
+                                    <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                                </button>
+                            </div>
+                            <div
+                                class="font-label-sm text-label-sm text-on-surface-variant flex items-center justify-between mt-auto pt-2">
+                                <span class="">Oct 12, 2023</span>
+                                <span class="">2.4 MB</span>
+                            </div>
+                            <div class="mt-2">
+                                <span
+                                    class="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-container/50 text-on-secondary-container font-label-sm text-label-sm w-fit border border-secondary-container">Invoice</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div
+                        class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] border border-outline-variant/30 overflow-hidden flex flex-col group hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-shadow duration-200">
+                        <div
+                            class="aspect-[4/3] bg-surface-container-low relative overflow-hidden border-b border-outline-variant/20">
+                            <img class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                                data-alt="photograph of a signed legal contract resting on a clean white desk, shallow depth of field, soft natural light"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPfFU8poFl6WkWToDraXhIJZtXc9XLcp3W0g9bO6ODKWyu8dJgnvgbtPZE3aKupWtvdAScMx6NS7gBiGoT0SFB1hOQ5q0bLewgCFsPJ0qt2TwKK_l0cU9Dh8POuzoDLXeXp5waMhxEAJJ1np9Nb8YT1CfgTRooE08w0r6qBWF7Psd6ofMIOyIVxur4_0WHH0uTD8gP6i_anBz1XVo6vmBChcsINn9nXFSMFlTFIkZtOxdn8Y0DNvQ5vugfcdNWq6YS9JbdQr0iXdNW">
+                        </div>
+                        <div class="p-4 flex flex-col gap-2 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <h3 class="font-body-md text-body-md font-semibold text-on-surface line-clamp-1"
+                                    title="NDA - Acme Corp Partnership">NDA - Acme Corp Partnership</h3>
+                                <button class="text-outline hover:text-primary transition-colors shrink-0">
+                                    <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                                </button>
+                            </div>
+                            <div
+                                class="font-label-sm text-label-sm text-on-surface-variant flex items-center justify-between mt-auto pt-2">
+                                <span class="">Sep 28, 2023</span>
+                                <span class="">850 KB</span>
+                            </div>
+                            <div class="mt-2">
+                                <span
+                                    class="inline-flex items-center px-2 py-0.5 rounded-full bg-tertiary-container/20 text-tertiary font-label-sm text-label-sm w-fit border border-tertiary-container/30">Contract</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div
+                        class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] border border-outline-variant/30 overflow-hidden flex flex-col group hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-shadow duration-200">
+                        <div
+                            class="aspect-[4/3] bg-surface-container-low relative overflow-hidden border-b border-outline-variant/20 flex items-center justify-center bg-surface-variant">
+                            <img class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                                data-alt="macro shot of a minimalist business receipt printed on thermal paper, slightly curled edge, clean white background"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-y9ex72adv24iP59iXsBNss7R7uRGNLjg8A3Rq4jYfaChTzVI6rlQ7mBCf62g2akZCKO_38Gs2Aw9hkS64hWXLs4H3gB9S5fMMnxuy4BYGDGN0tunRq7ROalvi7g_TzrZwDI83GJ7dxlG7Om0NBJHybREdrxe-UX3lRTiAiH4GKcTkDxdBTietPrCka-UcTuISlKB6sFZns8IPeVOvd83C4Zey4TxHGKZX05b0OLtvR1r4kc8GusHySv2NrSOrVHaCenioDI9H2XV">
+                        </div>
+                        <div class="p-4 flex flex-col gap-2 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <h3 class="font-body-md text-body-md font-semibold text-on-surface line-clamp-1"
+                                    title="Client Dinner - Onyx Room">Client Dinner - Onyx Room</h3>
+                                <button class="text-outline hover:text-primary transition-colors shrink-0">
+                                    <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                                </button>
+                            </div>
+                            <div
+                                class="font-label-sm text-label-sm text-on-surface-variant flex items-center justify-between mt-auto pt-2">
+                                <span class="">Sep 15, 2023</span>
+                                <span class="">1.1 MB</span>
+                            </div>
+                            <div class="mt-2">
+                                <span
+                                    class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm w-fit border border-outline-variant/50">Receipt</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div
+                        class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] border border-outline-variant/30 overflow-hidden flex flex-col group hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-shadow duration-200">
+                        <div
+                            class="aspect-[4/3] bg-surface-container-low relative overflow-hidden border-b border-outline-variant/20">
+                            <img class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                                data-alt="crisp digital rendering of an architectural blueprint with blue lines on white paper, organized and technical"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwFn51N2fnBy7mFAuHH2M0d2JzIUUVcck-tev9CG-mf0f2cOhy-oox9sWuKlk_0v4C6qkpp-ItYmxuWkpUkUpKnKB0MTllcxrC5cOFADXNhrjOcOgybOR0zeu7yeIUODYsxysPoZgc-MDA3W0EX_MjrDI6Gip9wxz2zgaPY2WEfYN65vF0c3sBNGFuhWIoSZCNj6p57WPK8bm0zikm9_D5eih542Bhdp-SHRX0OG1TDuEL23QY5MB1Ss9HHVT1umKs8o-k-BUMNSCZ">
+                        </div>
+                        <div class="p-4 flex flex-col gap-2 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <h3 class="font-body-md text-body-md font-semibold text-on-surface line-clamp-1"
+                                    title="Office Expansion Floorplan V2">Office Expansion Floorplan V2</h3>
+                                <button class="text-outline hover:text-primary transition-colors shrink-0">
+                                    <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                                </button>
+                            </div>
+                            <div
+                                class="font-label-sm text-label-sm text-on-surface-variant flex items-center justify-between mt-auto pt-2">
+                                <span class="">Aug 04, 2023</span>
+                                <span class="">14.5 MB</span>
+                            </div>
+                            <div class="mt-2">
+                                <span
+                                    class="inline-flex items-center px-2 py-0.5 rounded-full bg-primary-fixed/30 text-on-primary-fixed font-label-sm text-label-sm w-fit border border-primary-fixed">Blueprint</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+</body>
+
+</html>

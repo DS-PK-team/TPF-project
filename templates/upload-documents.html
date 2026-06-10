@@ -1,0 +1,297 @@
+<!-- Upload Documents with New Nav -->
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Vault &amp; Vellum - Settings</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#965e1c",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "secondary-container": "#d0e1fb",
+                        "outline": "#6f787d",
+                        "on-background": "#191c1e",
+                        "surface": "#f7f9fb",
+                        "primary-container": "#0e7490",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "on-primary-fixed-variant": "#004d62",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#191c1e",
+                        "on-tertiary-container": "#ffe8d6",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e6e8ea",
+                        "tertiary-fixed": "#ffdcbd",
+                        "background": "#f7f9fb",
+                        "surface-variant": "#e0e3e5",
+                        "surface-tint": "#006781",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "primary": "#005a71",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-secondary-container": "#54647a",
+                        "on-primary-fixed": "#001f29",
+                        "primary-fixed": "#b9eaff",
+                        "inverse-on-surface": "#eff1f3",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#bec8cd",
+                        "on-surface-variant": "#3f484c",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb86f",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface-container": "#eceef0",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#81d1f0",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary": "#505f76",
+                        "on-primary-container": "#d3f1ff",
+                        "inverse-primary": "#81d1f0",
+                        "tertiary": "#794602",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#f7f9fb",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-dim": "#d8dadc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "40px",
+                        "gutter": "20px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "container-max": "1280px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Manrope"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg": ["30px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background h-screen w-screen overflow-hidden flex relative">
+    <!-- Background App (Archive View) -->
+    <div class="flex w-full h-full filter blur-[2px] pointer-events-none select-none">
+        <!-- SideNav Component (from JSON) -->
+        <nav
+            class="bg-white dark:bg-slate-900 h-screen w-64 border-r rounded-none border-r border-slate-100 dark:border-slate-800 shadow-[4px_0_12px_rgba(0,0,0,0.03)] flex flex-col p-4 gap-2 shrink-0 z-10 hidden md:flex">
+            <!-- Header -->
+            <div class="flex items-center gap-3 mb-6 px-2">
+                <div class="w-8 h-8 rounded-lg bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-[20px]"
+                        style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+                </div>
+                <div>
+                    <h1
+                        class="font-['Manrope'] text-sm font-semibold text-lg font-black text-slate-900 dark:text-white leading-tight">
+                        Document Vault</h1>
+                    <p class="text-xs text-slate-500 font-medium">Secure Storage</p>
+                </div>
+            </div>
+            <!-- CTA -->
+            <button
+                class="w-full bg-cyan-700 text-white font-['Manrope'] text-sm font-semibold py-2.5 rounded-lg mb-4 hover:bg-cyan-800 transition-colors flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">add</span>
+                New Document
+            </button>
+            <!-- Main Tabs -->
+            <div class="flex-1 flex flex-col gap-1">
+                <!-- Active Tab (Archive) -->
+                <a class="bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-400 rounded-lg flex items-center gap-3 px-3 py-2.5 active:opacity-80"
+                    href="#">
+                    <span class="material-symbols-outlined text-[20px]">inventory_2</span>
+                    <span class="font-['Manrope'] text-sm font-semibold">Archive</span>
+                </a>
+                <!-- Inactive Tabs -->
+                <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all rounded-lg flex items-center gap-3 px-3 py-2.5 active:opacity-80"
+                    href="#">
+                    <span class="material-symbols-outlined text-[20px]">upload_file</span>
+                    <span class="font-['Manrope'] text-sm font-semibold">Upload</span>
+                </a>
+                <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all rounded-lg flex items-center gap-3 px-3 py-2.5 active:opacity-80"
+                    href="#">
+                    <span class="material-symbols-outlined text-[20px]">group</span>
+                    <span class="font-['Manrope'] text-sm font-semibold">Shared</span>
+                </a>
+            </div>
+            <!-- Footer Tabs -->
+            <div class="flex flex-col gap-1 mt-auto pt-4 border-t border-slate-100 dark:border-slate-800">
+                <a class="bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-400 rounded-lg flex items-center gap-3 px-3 py-2.5 active:opacity-80"
+                    href="#">
+                    <span class="material-symbols-outlined text-[20px]">settings</span>
+                    <span class="font-['Manrope'] text-sm font-semibold">Settings</span>
+                </a>
+                <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all rounded-lg flex items-center gap-3 px-3 py-2.5 active:opacity-80"
+                    href="#">
+                    <span class="material-symbols-outlined text-[20px]">help</span>
+                    <span class="font-['Manrope'] text-sm font-semibold">Support</span>
+                </a>
+            </div>
+        </nav>
+        <!-- Main Content Area Placeholder -->
+        <main class="flex-1 flex flex-col">
+            <!-- TopNavBar (from JSON) -->
+            <nav
+                class="bg-[#F8FAFC] dark:bg-slate-950 flex justify-between items-center px-6 py-3 w-full sticky top-0 z-40 border-b border-slate-200 dark:border-slate-800">
+                <div class="flex items-center gap-6">
+                    <span class="text-xl font-bold text-cyan-800 dark:text-cyan-400">Vault &amp; Vellum</span>
+                    <div class="relative hidden sm:block w-64">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+                        <input
+                            class="w-full pl-10 pr-4 py-1.5 rounded-lg border-none bg-white shadow-sm font-['Manrope'] text-sm text-slate-700 focus:ring-1 focus:ring-cyan-500 placeholder:text-slate-400"
+                            disabled="" placeholder="Search archive..." type="text">
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button
+                        class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors active:scale-95 duration-150"
+                        disabled="">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <button
+                        class="p-2 text-cyan-700 bg-slate-100 rounded-full transition-colors active:scale-95 duration-150"
+                        disabled="">
+                        <span class="material-symbols-outlined"
+                            style="font-variation-settings: 'FILL' 1;">settings</span>
+                    </button>
+                    <div class="ml-2 w-8 h-8 rounded-full bg-slate-300 overflow-hidden border border-slate-200"
+                        title="User avatar">
+                        <img alt="" class="w-full h-full object-cover"
+                            data-alt="A professional headshot of a person used as a user avatar placeholder. The lighting is soft and natural, typical of a modern corporate portrait. The color palette is neutral and blends seamlessly with a clean, light-mode UI aesthetic."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdB0j_dILLf34-3kq8_ZcNbMG0TlT9p-xvQhPPJlkHoZ35PKfgLs1XfakkWXBpiK6dBPws7xR3jYWuAKvEigOm6tTLlEMbzc20LfEMZlA26Y8HqV0dHW9NzBfuiRp0r_b2M5szpssSkauDqV-3O6v-n5HowP2d6vHYBLXAlaPiqppZ7lDUbzz702QFNhuaIHcgizRH14Wt62_l8uHvZDt0Rhbo-hyTmNxH1NNqW2jJl_6uJ_EfneFI0sNGwlgBsIX6Vzy4tBTKnCk">
+                    </div>
+                </div>
+            </nav>
+            <!-- Dummy Dashboard Content -->
+            <div class="p-lg flex-1 overflow-auto bg-background">
+                <h2 class="font-headline-md text-on-background mb-lg">Archive Overview</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+                    <div
+                        class="bg-surface-container-lowest p-md rounded-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] border border-surface-variant h-48">
+                    </div>
+                    <div
+                        class="bg-surface-container-lowest p-md rounded-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] border border-surface-variant h-48">
+                    </div>
+                    <div
+                        class="bg-surface-container-lowest p-md rounded-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] border border-surface-variant h-48">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- Overlay (mgiełka) -->
+    <div class="absolute inset-0 bg-inverse-surface/60 backdrop-blur-sm z-40 flex items-center justify-center p-4">
+        <!-- Settings Modal -->
+        <div
+            class="bg-surface-container-lowest rounded-xl shadow-[0px_10px_25px_rgba(0,0,0,0.08)] w-full max-w-md overflow-hidden transform scale-100 transition-transform duration-200 ease-out border border-surface-variant relative">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-lg pb-md border-b border-surface-container-highest">
+                <h2 class="font-headline-md text-on-surface">Settings</h2>
+                <button
+                    class="text-on-surface-variant hover:text-on-surface transition-colors rounded-full p-xs hover:bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                    <span class="material-symbols-outlined text-[24px]">close</span>
+                </button>
+            </div>
+            <!-- Modal Body -->
+            <div class="p-lg flex flex-col gap-lg">
+                <!-- Account Info Section -->
+                <section>
+                    <h3 class="font-label-md text-secondary uppercase tracking-wider mb-sm">Account Information</h3>
+                    <div class="bg-surface rounded-lg p-md border border-surface-variant flex items-center gap-md">
+                        <div
+                            class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[24px]">person</span>
+                        </div>
+                        <div class="flex-1 overflow-hidden">
+                            <p class="font-body-lg text-on-surface truncate">archivist@vaultandvellum.io</p>
+
+                        </div>
+                    </div>
+                </section>
+                <hr class="border-surface-container-high">
+                <!-- Actions Section -->
+                <section class="flex flex-col gap-sm">
+                    <h3 class="font-label-md text-secondary uppercase tracking-wider mb-xs">Security &amp; Data</h3>
+                    <button
+                        class="w-full flex items-center justify-between p-md bg-surface-container-lowest border border-surface-variant rounded-lg hover:bg-surface-container transition-colors group">
+                        <div class="flex items-center gap-3 text-on-surface">
+                            <span class="material-symbols-outlined text-outline">password</span>
+                            <span class="font-body-md font-medium">Change Password</span>
+                        </div>
+                        <span
+                            class="material-symbols-outlined text-outline group-hover:text-on-surface transition-colors">chevron_right</span>
+                    </button>
+                    <button
+                        class="w-full flex items-center justify-between p-md bg-surface-container-lowest border border-surface-variant rounded-lg hover:bg-surface-container transition-colors group">
+                        <div class="flex items-center gap-3 text-on-surface">
+                            <span class="material-symbols-outlined text-outline">sync</span>
+                            <span class="font-body-md font-medium">Sync Data</span>
+                        </div>
+                        <span
+                            class="font-label-sm text-outline group-hover:text-on-surface transition-colors bg-surface-variant px-2 py-1 rounded-full">Up
+                            to date</span>
+                    </button>
+                </section>
+            </div>
+            <!-- Modal Footer -->
+            <div class="p-lg bg-surface pt-md border-t border-surface-container-highest">
+                <button
+                    class="w-full bg-error text-on-error font-body-lg font-medium py-3 rounded-lg hover:bg-error/90 transition-colors flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-error focus:ring-offset-2">
+                    <span class="material-symbols-outlined text-[20px]">logout</span>
+                    Log Out
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

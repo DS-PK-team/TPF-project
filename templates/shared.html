@@ -1,0 +1,313 @@
+<!-- Shared with Fixed Navigation -->
+<!DOCTYPE html>
+<html class="light" lang="en" style="">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Vault &amp; Vellum - Upload</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#794602",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffdcbd",
+                        "primary-fixed-dim": "#81d1f0",
+                        "on-primary-container": "#d3f1ff",
+                        "on-primary-fixed-variant": "#004d62",
+                        "on-primary-fixed": "#001f29",
+                        "on-surface": "#191c1e",
+                        "outline": "#6f787d",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container": "#eceef0",
+                        "on-surface-variant": "#3f484c",
+                        "surface-tint": "#006781",
+                        "tertiary-container": "#965e1c",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "outline-variant": "#bec8cd",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "secondary-container": "#d0e1fb",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "surface-variant": "#e0e3e5",
+                        "on-tertiary-container": "#ffe8d6",
+                        "primary": "#005a71",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#505f76",
+                        "primary-fixed": "#b9eaff",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary-fixed": "#0b1c30",
+                        "primary-container": "#0e7490",
+                        "inverse-primary": "#81d1f0",
+                        "tertiary-fixed-dim": "#ffb86f",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f7f9fb",
+                        "surface-container-high": "#e6e8ea",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface": "#f7f9fb",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-dim": "#d8dadc",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary-container": "#54647a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xl": "40px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "unit": "4px",
+                        "container-max": "1280px",
+                        "gutter": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Manrope"],
+                        "headline-sm": ["Manrope"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["30px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background text-on-surface flex h-screen overflow-hidden font-body-md">
+    <!-- SideNavBar (from JSON) -->
+    <aside
+        class="bg-white dark:bg-slate-900 h-screen w-64 border-r rounded-none border-r border-slate-100 dark:border-slate-800 shadow-[4px_0_12px_rgba(0,0,0,0.03)] flex flex-col h-full p-4 gap-2 z-50 shrink-0">
+        <div class="mb-xl px-sm">
+            <div class="flex items-center gap-sm mb-xs">
+                <span class="material-symbols-outlined text-primary text-2xl"
+                    style="font-variation-settings: &quot;FILL&quot; 1;">inventory_2</span>
+                <h1 class="font-['Manrope'] text-lg font-black text-slate-900 dark:text-white">Document Vault</h1>
+            </div>
+            <p class="font-['Inter'] text-label-sm text-slate-500 dark:text-slate-400">Secure Storage</p>
+        </div>
+        <button
+            class="w-full bg-primary text-on-primary font-['Manrope'] text-sm font-semibold py-md rounded-lg mb-lg hover:bg-surface-tint transition-colors flex justify-center items-center gap-sm shadow-[0_4px_12px_rgba(0,90,113,0.2)]">
+            <span class="material-symbols-outlined text-[18px]">add</span>
+            New Document
+        </button>
+        <nav class="flex-1 flex flex-col gap-xs font-['Manrope'] text-sm font-semibold">
+            <a class="flex items-center gap-md px-md py-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all rounded-lg group"
+                href="#">
+                <span class="material-symbols-outlined group-hover:text-primary transition-colors">inventory_2</span>
+                <span class="">Archive</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-400 rounded-lg active:opacity-80"
+                href="#">
+                <span class="material-symbols-outlined"
+                    style="font-variation-settings: &quot;FILL&quot; 1;">upload_file</span>
+                <span class="">Upload</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all rounded-lg group"
+                href="#">
+                <span class="material-symbols-outlined group-hover:text-primary transition-colors">group</span>
+                <span class="">Shared</span>
+            </a>
+        </nav>
+        <div class="mt-auto pt-lg border-t border-slate-100 dark:border-slate-800 flex flex-col gap-xs">
+            <div class="flex items-center gap-sm px-md py-sm mb-xs">
+                <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                <span class="font-['Manrope'] text-xs font-medium text-slate-500 dark:text-slate-400">All files
+                    synced</span>
+            </div>
+            <a class="flex items-center gap-md px-md py-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all rounded-lg group font-['Manrope'] text-sm font-semibold"
+                href="#">
+                <span class="material-symbols-outlined group-hover:text-primary transition-colors">settings</span>
+                <span class="">Settings</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm transition-all rounded-lg font-['Manrope'] text-sm font-semibold text-slate-900 dark:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                href="#">
+                <span class="material-symbols-outlined">logout</span>
+                <span class="">Log Out</span>
+            </a>
+        </div>
+    </aside>
+    <!-- Main Content Area -->
+    <div class="flex-1 flex flex-col min-w-0 bg-surface-container-low">
+        <!-- TopNavBar (from JSON, adapted for flex layout within main area) -->
+        <header
+            class="sticky top-0 z-20 bg-background/80 backdrop-blur-md border-b border-surface-variant px-lg py-md lg:px-xl lg:py-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+                <h2 class="font-headline-lg text-on-background">Vault &amp; Vellum</h2>
+                <p class="font-body-md text-on-surface-variant mt-1">Secure Storage</p>
+            </div>
+            <div class="flex items-center gap-sm">
+                <div class="relative hidden sm:block">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline"
+                        style="font-size: 18px;">search</span>
+                    <input
+                        class="pl-9 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-on-background placeholder:text-outline focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64 transition-all"
+                        placeholder="Search files..." type="text">
+                </div>
+                <div class="flex items-center gap-md ml-4">
+                    <button class="p-sm rounded-full hover:bg-surface-variant transition-colors text-outline">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <button class="p-sm rounded-full hover:bg-surface-variant transition-colors text-outline">
+                        <span class="material-symbols-outlined">settings</span>
+                    </button>
+                    <img alt="User avatar" class="w-8 h-8 rounded-full border border-outline-variant/30 object-cover"
+                        src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg">
+                </div>
+            </div>
+        </header>
+        <!-- Canvas: Upload Screen -->
+        <main class="flex-1 overflow-y-auto p-xl">
+            <div class="max-w-container-max mx-auto h-full flex flex-col">
+                <div class="mb-lg">
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Upload Documents</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Securely add files to your digital
+                        archive.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-lg flex-1">
+                    <!-- Main Drag & Drop Zone -->
+                    <div class="lg:col-span-8 flex flex-col">
+                        <div
+                            class="flex-1 border-2 border-dashed border-outline-variant/60 rounded-xl bg-surface-container-lowest flex flex-col items-center justify-center p-xl gap-lg transition-all duration-200 hover:border-primary hover:bg-surface hover:shadow-[0px_10px_25px_rgba(0,0,0,0.04)] group cursor-pointer relative min-h-[400px]">
+                            <!-- Hidden File Input for actual functionality -->
+                            <input accept=".png,.jpg,.jpeg"
+                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" multiple=""
+                                type="file">
+                            <div
+                                class="w-24 h-24 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary-container group-hover:scale-105 transition-all duration-300">
+                                <span
+                                    class="material-symbols-outlined text-[48px] text-primary group-hover:text-on-primary-container transition-colors">cloud_upload</span>
+                            </div>
+                            <div class="text-center flex flex-col gap-sm">
+                                <h3
+                                    class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
+                                    Drag &amp; drop files here</h3>
+                                <p class="font-body-md text-body-md text-on-surface-variant">or click to browse your
+                                    computer</p>
+                            </div>
+                            <div class="mt-md flex flex-col items-center gap-md">
+                                <div
+                                    class="bg-surface px-md py-sm rounded-full border border-outline-variant/30 shadow-[0px_4px_12px_rgba(0,0,0,0.02)]">
+                                    <span
+                                        class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Only
+                                        PNG, JPG, JPEG allowed</span>
+                                </div>
+                                <button
+                                    class="bg-primary text-on-primary font-label-md text-label-md px-xl py-sm rounded-lg hover:bg-surface-tint transition-colors shadow-[0px_4px_12px_rgba(0,90,113,0.15)] relative z-20 pointer-events-none">
+                                    Select Files
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Side Options (QR Code) -->
+                    <div class="lg:col-span-4 flex flex-col gap-lg">
+                        <div
+                            class="bg-surface-container-lowest rounded-xl p-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] border border-outline-variant/20 flex flex-col items-center text-center">
+                            <div class="w-full flex items-center justify-between mb-lg">
+                                <h3 class="font-headline-sm text-headline-sm text-on-surface">Upload via Mobile</h3>
+                                <span class="material-symbols-outlined text-outline">phone_iphone</span>
+                            </div>
+                            <div class="bg-white p-sm rounded-lg border border-outline-variant/30 mb-md">
+                                <img alt="QR Code for mobile upload" class="w-32 h-32 object-contain"
+                                    data-alt="crisp black and white square QR code on pure white background"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBf6EoH5Ab-oohTKe8vc8w3D6krF-ye0Q3Q7Sz7xL7lkQOKH_iLPS8nvwPJOyJQUTFg-PCl9i9fCZmyYNNpv6mV7RqDKpYPVgTYIudRnToTOuVFVobm64orcReKZ2BAVuEOtukTN8_i8BoQD_0Wospelu4PmPFM7Mrh_sJq3GIHcpceFbViFaZKjoStJoFa-rRjjI9dIrVd6T7408inOL_D6vroXRg6OxSzNjYpPMz1XPRrd7ToKh5xj0bytrW2orZf2aJEsZEdPotX">
+                            </div>
+                            <p class="font-body-md text-body-md text-on-surface-variant mb-md">Scan this QR code with
+                                your phone's camera to instantly transfer photos to this secure vault.</p>
+                            <div
+                                class="flex items-center gap-xs text-primary font-label-md text-label-md bg-primary-container/10 px-md py-xs rounded-full">
+                                <span class="material-symbols-outlined text-[16px]">lock</span>
+                                End-to-end encrypted
+                            </div>
+                        </div>
+                        <!-- Helpful Tips Card -->
+                        <div
+                            class="bg-surface-container-lowest rounded-xl p-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] border border-outline-variant/20 flex-1">
+                            <h3
+                                class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-md">
+                                Upload Guidelines</h3>
+                            <ul class="flex flex-col gap-md font-body-md text-body-md text-on-surface">
+                                <li class="flex items-start gap-sm">
+                                    <span
+                                        class="material-symbols-outlined text-outline text-[20px] mt-xs">check_circle</span>
+                                    <span class="">Maximum file size is 25MB per image.</span>
+                                </li>
+                                <li class="flex items-start gap-sm">
+                                    <span
+                                        class="material-symbols-outlined text-outline text-[20px] mt-xs">check_circle</span>
+                                    <span class="">Images will be automatically organized by date captured.</span>
+                                </li>
+                                <li class="flex items-start gap-sm">
+                                    <span class="material-symbols-outlined text-outline text-[20px] mt-xs">info</span>
+                                    <span class="">Need to upload PDFs? Use the Document type during manual
+                                        entry.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+
+
+
+
+</body>
+
+</html>

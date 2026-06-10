@@ -1,0 +1,393 @@
+<!-- Design System -->
+<!DOCTYPE html>
+
+<html class="light" lang="en" style="">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Shared Documents - Vault &amp; Vellum</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#3f484c",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#d0e1fb",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#d3e4fe",
+                        "primary-container": "#0e7490",
+                        "on-primary-fixed-variant": "#004d62",
+                        "on-primary-fixed": "#001f29",
+                        "tertiary-fixed-dim": "#ffb86f",
+                        "inverse-surface": "#2d3133",
+                        "surface-bright": "#f7f9fb",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container": "#eceef0",
+                        "primary": "#005a71",
+                        "primary-fixed-dim": "#81d1f0",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "inverse-primary": "#81d1f0",
+                        "on-surface": "#191c1e",
+                        "surface-tint": "#006781",
+                        "surface-container-highest": "#e0e3e5",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "background": "#f7f9fb",
+                        "inverse-on-surface": "#eff1f3",
+                        "primary-fixed": "#b9eaff",
+                        "surface-container-low": "#f2f4f6",
+                        "on-background": "#191c1e",
+                        "on-primary-container": "#d3f1ff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#54647a",
+                        "on-tertiary-container": "#ffe8d6",
+                        "surface-variant": "#e0e3e5",
+                        "outline-variant": "#bec8cd",
+                        "surface": "#f7f9fb",
+                        "outline": "#6f787d",
+                        "on-secondary-fixed": "#0b1c30",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#794602",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#965e1c",
+                        "surface-dim": "#d8dadc",
+                        "secondary": "#505f76",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "20px",
+                        "xs": "4px",
+                        "unit": "4px",
+                        "xl": "40px",
+                        "sm": "8px",
+                        "container-max": "1280px",
+                        "md": "16px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Manrope"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg": ["30px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e0e3e5;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bec8cd;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background flex h-screen overflow-hidden antialiased">
+    <!-- SideNavBar Component -->
+    <nav
+        class="h-screen w-64 border-r rounded-none border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-[4px_0_12px_rgba(0,0,0,0.03)] flex flex-col h-full p-4 gap-2 z-50 shrink-0 hidden md:flex font-['Manrope'] text-sm font-semibold">
+        <!-- Header -->
+        <div class="flex items-center gap-3 mb-6 px-2 mt-2">
+            <div class="w-10 h-10 rounded-lg bg-cyan-700 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-white"
+                    style="font-variation-settings: 'FILL' 1;">assured_workload</span>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-lg font-black text-slate-900 dark:text-white leading-tight">Document Vault</span>
+                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">Secure Storage</span>
+            </div>
+        </div>
+        <!-- CTA -->
+        <button
+            class="w-full bg-cyan-700 text-white rounded-lg py-2.5 px-4 mb-4 flex items-center justify-center gap-2 text-sm font-semibold hover:bg-cyan-800 transition-all active:opacity-80">
+            <span class="material-symbols-outlined text-[18px]">add</span>
+            New Document
+        </button>
+        <!-- Main Tabs -->
+        <div class="flex-1 flex flex-col gap-1">
+            <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-lg flex items-center gap-3 px-3 py-2.5 transition-all active:opacity-80"
+                href="#">
+                <span class="material-symbols-outlined">inventory_2</span>
+                Archive
+            </a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-lg flex items-center gap-3 px-3 py-2.5 transition-all active:opacity-80"
+                href="#">
+                <span class="material-symbols-outlined">upload_file</span>
+                Upload
+            </a>
+            <a class="bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-400 rounded-lg flex items-center gap-3 px-3 py-2.5 transition-all active:opacity-80"
+                href="#">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+                Shared
+            </a>
+        </div>
+        <!-- Footer Tabs -->
+        <div class="flex flex-col gap-1 pt-4 border-t border-slate-100 dark:border-slate-800">
+            <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-lg flex items-center gap-3 px-3 py-2.5 transition-all active:opacity-80"
+                href="#">
+                <span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-lg flex items-center gap-3 px-3 py-2.5 transition-all active:opacity-80"
+                href="#">
+                <span class="material-symbols-outlined">logout</span>
+                Log Out
+            </a>
+            <!-- Status Indicator -->
+            <div class="mt-4 px-3 flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                <span class="text-[11px] font-semibold text-slate-500 dark:text-slate-400">All files synced</span>
+            </div>
+        </div>
+    </nav>
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col h-screen overflow-y-auto relative">
+        <!-- Sticky Header Area within Main -->
+        <header
+            class="flex justify-between items-center px-6 py-3 w-full sticky top-0 z-40 bg-surface-container-lowest border-b border-surface-dim flat no shadows active:scale-95 duration-150">
+            <!-- Search Bar on Left -->
+            <div class="flex-1 flex items-center">
+                <div class="relative w-full max-w-md">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+                    <input
+                        class="w-full bg-surface border border-outline-variant rounded-lg py-2 pl-10 pr-4 font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                        placeholder="Search shared files..." type="text" />
+                </div>
+            </div>
+            <!-- Trailing Icon Actions -->
+            <div class="flex items-center gap-4">
+                <button
+                    class="text-on-surface-variant hover:bg-surface-container-high rounded-full p-2 transition-colors flex items-center justify-center">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button
+                    class="text-on-surface-variant hover:bg-surface-container-high rounded-full p-2 transition-colors flex items-center justify-center">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+                <div class="w-8 h-8 rounded-full bg-surface-dim overflow-hidden ml-2 border border-outline-variant">
+                    <img alt="User avatar" class="w-full h-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfReV1CJO7_-BbZeHcfPcWr-F2aHsBh4reua_4M_U7nQJ3kKNrCQVaccWO3w8RkZJQdHHTMmsZGZ43xh-irE0EHNhZcOhy6wYhSnVA9Zzk-JzNnA-TK6UHVDQn3tVUCdCdbWjuaFGsD51fFWzUCptrL5aAqXMQrFg1l__teIOVMsGTHHUTJOPVk2DqQbcdduIZqrTUvDyr1fv3Z-X86ohqs9lM2a4ADbfflHVvCwtHfwS_5bx0lMUEPJzn-br9y5mFvfEHG26vQnbV" />
+                </div>
+            </div>
+        </header>
+        <div class="flex-1 overflow-y-auto p-xl">
+            <!-- Filters / Chips -->
+            <div class="flex items-center gap-sm mb-lg overflow-x-auto pb-2 scrollbar-hide">
+                <button
+                    class="px-4 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-md transition-colors whitespace-nowrap">
+                    Shared with me
+                </button>
+                <button
+                    class="px-4 py-1.5 rounded-full bg-surface-container-high text-on-surface hover:bg-surface-variant font-label-md transition-colors whitespace-nowrap border border-transparent">
+                    Shared by me
+                </button>
+                <div class="w-[1px] h-4 bg-outline-variant mx-2"></div>
+                <button
+                    class="flex items-center gap-1 px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-highest font-label-md transition-colors">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">filter_list</span>
+                    Filter
+                </button>
+            </div>
+            <!-- Bento Grid / Cards Layout -->
+            <div
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-md lg:gap-lg auto-rows-max pb-xl">
+                <!-- Document Card 1 -->
+                <div
+                    class="group bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-outline-variant overflow-hidden flex flex-col cursor-pointer h-full relative">
+                    <div class="h-40 bg-surface-container w-full relative overflow-hidden">
+                        <img alt="Document Preview"
+                            class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300 group-hover:scale-105 transform"
+                            data-alt="A close-up, high-quality photograph of architectural blueprints spread out on a clean, modern desk. The lighting is bright and even, highlighting the intricate blue and white line work of the floor plans. A subtle pair of modern reading glasses rests near the edge. The overall aesthetic is professional, organized, and fits perfectly within a sleek, minimalist light-mode digital vault environment."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMcF3eqMMKVY4QeSWy2PAumShq_8EPmrzEltBAtGLiuEWxN6G0LLCqkMqIPLFhD3z-ZNKTK-CyBCvZAVNjrx0styn0vFiZPO86SnKrdnhH7DjBokfiLbAEPn2z2ss3C1EzHh9dv_e2atrL90kdMY4zzNuQyjUHjNIfLcQJokzrctnEHrggoePIAKbjwQ_qH5FyMgAfODABtLI6Kaks8Q_cw6KEp_CjBlsYscuNGxfxZLw4ghaFYF0Ton5V9-A1fHOdSwYI1kiyAmw" />
+                        <!-- Type Badge -->
+                        <div
+                            class="absolute top-sm right-sm bg-surface-container-lowest/90 backdrop-blur-sm p-1 rounded-md shadow-sm">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-size: 16px;">picture_as_pdf</span>
+                        </div>
+                    </div>
+                    <div class="p-md flex flex-col flex-1">
+                        <h3 class="font-headline-sm text-on-background line-clamp-1 mb-xs">Q3 Design Specs.pdf</h3>
+                        <div class="flex items-center gap-2 mb-sm">
+                            <div
+                                class="w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center shrink-0">
+                                <span class="font-label-sm text-on-secondary-container">ES</span>
+                            </div>
+                            <p class="font-body-md text-on-surface-variant line-clamp-1">Elena Smith</p>
+                        </div>
+                        <div
+                            class="mt-auto pt-sm border-t border-surface-variant flex justify-between items-center text-outline font-label-sm">
+                            <span class="">Oct 12, 2023</span>
+                            <span class="">2.4 MB</span>
+                        </div>
+                    </div>
+                    <!-- Hover Actions -->
+                    <div
+                        class="absolute top-sm left-sm opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
+                        <button
+                            class="bg-surface-container-lowest/90 backdrop-blur-sm p-1.5 rounded-md shadow-sm text-on-surface hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Document Card 2 -->
+                <div
+                    class="group bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-outline-variant overflow-hidden flex flex-col cursor-pointer h-full relative">
+                    <div
+                        class="h-40 bg-surface-container w-full relative overflow-hidden flex items-center justify-center">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-secondary-container to-surface-container-lowest opacity-50">
+                        </div>
+                        <span class="material-symbols-outlined text-secondary relative z-10"
+                            style="font-size: 48px;">description</span>
+                        <div
+                            class="absolute top-sm right-sm bg-surface-container-lowest/90 backdrop-blur-sm p-1 rounded-md shadow-sm z-10">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-size: 16px;">description</span>
+                        </div>
+                    </div>
+                    <div class="p-md flex flex-col flex-1">
+                        <h3 class="font-headline-sm text-on-background line-clamp-1 mb-xs">Client Contract - Acme.docx
+                        </h3>
+                        <div class="flex items-center gap-2 mb-sm">
+                            <div
+                                class="w-6 h-6 rounded-full bg-tertiary-container flex items-center justify-center shrink-0">
+                                <span class="font-label-sm text-on-tertiary-container">MJ</span>
+                            </div>
+                            <p class="font-body-md text-on-surface-variant line-clamp-1">Marcus Johnson</p>
+                        </div>
+                        <div
+                            class="mt-auto pt-sm border-t border-surface-variant flex justify-between items-center text-outline font-label-sm">
+                            <span class="">Oct 10, 2023</span>
+                            <span class="">45 KB</span>
+                        </div>
+                    </div>
+                    <!-- Hover Actions -->
+                    <div
+                        class="absolute top-sm left-sm opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 z-20">
+                        <button
+                            class="bg-surface-container-lowest/90 backdrop-blur-sm p-1.5 rounded-md shadow-sm text-on-surface hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Document Card 3 -->
+                <div
+                    class="group bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-outline-variant overflow-hidden flex flex-col cursor-pointer h-full relative">
+                    <div class="h-40 bg-surface-container w-full relative overflow-hidden">
+                        <img alt="Dashboard Screenshot"
+                            class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300 group-hover:scale-105 transform"
+                            data-alt="A clean, minimalist screenshot of a digital analytics dashboard displayed on a modern laptop screen. The interface features crisp line graphs and bar charts in varying shades of teal and gray against a bright white background. Soft, diffused lighting enhances the sleek, professional look, perfectly aligning with a modern, light-mode document vault aesthetic."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYPuwFrswF-dsDA7aOKYpAwzA_7-BobrCKb7LhuhxeYhnDvnTAZJojdclzzRujIF_VSBPhys3U9Xb52SD1lnrP9gyn6pLPexgkae-HKKdoc8ATrLOgr-DiGDdzqIr7k2QRw_46YS8J2eNq9wsmTViWAskIpGckuFpQLc5q2-1QZuTMwHc_nMfpJHQOfXy33xlSdrIRV60FYfqiUMNnVxW7UiLabrWhkkcbAgLy9gEAp5UyKiY9l_1A6Yo0hy6keIpq4r5jcAqRLDs" />
+                        <div
+                            class="absolute top-sm right-sm bg-surface-container-lowest/90 backdrop-blur-sm p-1 rounded-md shadow-sm">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 16px;">image</span>
+                        </div>
+                    </div>
+                    <div class="p-md flex flex-col flex-1">
+                        <h3 class="font-headline-sm text-on-background line-clamp-1 mb-xs">Analytics_Dashboard_v2.png
+                        </h3>
+                        <div class="flex items-center gap-2 mb-sm">
+                            <div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center shrink-0">
+                                <span class="font-label-sm text-on-primary">Team</span>
+                            </div>
+                            <p class="font-body-md text-on-surface-variant line-clamp-1">Design Team</p>
+                        </div>
+                        <div
+                            class="mt-auto pt-sm border-t border-surface-variant flex justify-between items-center text-outline font-label-sm">
+                            <span class="">Oct 08, 2023</span>
+                            <span class="">1.2 MB</span>
+                        </div>
+                    </div>
+                    <!-- Hover Actions -->
+                    <div
+                        class="absolute top-sm left-sm opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
+                        <button
+                            class="bg-surface-container-lowest/90 backdrop-blur-sm p-1.5 rounded-md shadow-sm text-on-surface hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Document Card 4 (Folder/Collection style) -->
+                <div
+                    class="group bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-outline-variant overflow-hidden flex flex-col cursor-pointer h-full relative">
+                    <div
+                        class="h-40 bg-surface-container-low w-full relative overflow-hidden flex items-center justify-center">
+                        <div
+                            class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-surface-variant to-surface-container-low opacity-40">
+                        </div>
+                        <span class="material-symbols-outlined text-on-surface-variant relative z-10" data-weight="fill"
+                            style="font-size: 56px;">folder_shared</span>
+                    </div>
+                    <div class="p-md flex flex-col flex-1">
+                        <h3 class="font-headline-sm text-on-background line-clamp-1 mb-xs">Marketing Assets 2024</h3>
+                        <div class="flex items-center gap-2 mb-sm">
+                            <div
+                                class="w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center shrink-0">
+                                <span class="font-label-sm text-on-secondary-container">SL</span>
+                            </div>
+                            <p class="font-body-md text-on-surface-variant line-clamp-1">Sarah Lee</p>
+                        </div>
+                        <div
+                            class="mt-auto pt-sm border-t border-surface-variant flex justify-between items-center text-outline font-label-sm">
+                            <span class="">Oct 01, 2023</span>
+                            <span class="">14 Items</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

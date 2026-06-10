@@ -1,0 +1,228 @@
+<!-- Processing with Standardized Navigation -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Processing - Vault &amp; Vellum</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#0E7490",
+                        "surface": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#e0e3e5",
+                        "outline-variant": "#bec8cd"
+                    },
+                    "fontFamily": {
+                        "sans": ["Manrope", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        @keyframes scan {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(400%);
+            }
+        }
+
+        .scan-line {
+            animation: scan 3s linear infinite;
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface min-h-screen flex font-sans">
+    <!-- SideNavBar -->
+    <aside class="w-64 bg-white border-r border-slate-100 flex flex-col h-screen sticky top-0">
+        <div class="p-6">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-10 h-10 bg-cyan-700 rounded-lg flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined">account_balance</span>
+                </div>
+                <div>
+                    <h1 class="font-bold text-slate-900 leading-tight">Document Vault</h1>
+                    <p class="text-xs text-slate-500">Secure Storage</p>
+                </div>
+            </div>
+
+            <button
+                class="w-full bg-cyan-800 text-white py-3 rounded-lg font-bold flex items-center justify-center gap-2 mb-8 hover:bg-cyan-900 transition-colors">
+                <span class="material-symbols-outlined text-xl">add</span>
+                New Document
+            </button>
+
+            <nav class="space-y-1">
+                <a href="#"
+                    class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-lg transition-all">
+                    <span class="material-symbols-outlined">inventory_2</span>
+                    <span class="font-semibold text-sm">Archive</span>
+                </a>
+                <a href="#"
+                    class="flex items-center gap-3 px-4 py-3 bg-cyan-50 text-cyan-700 rounded-lg transition-all">
+                    <span class="material-symbols-outlined">upload_file</span>
+                    <span class="font-semibold text-sm">Upload</span>
+                </a>
+                <a href="#"
+                    class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-lg transition-all">
+                    <span class="material-symbols-outlined">group</span>
+                    <span class="font-semibold text-sm">Shared</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="mt-auto p-6 border-t border-slate-50">
+            <div class="flex items-center gap-2 text-slate-500 mb-4 px-2">
+                <div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                <span class="text-xs font-medium">All files synced</span>
+            </div>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-lg w-full transition-all mb-1">
+                <span class="material-symbols-outlined">settings</span>
+                <span class="font-semibold text-sm">Settings</span>
+            </a><button
+                class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-lg w-full transition-all">
+                <span class="material-symbols-outlined">logout</span>
+                <span class="font-semibold text-sm">Log Out</span>
+            </button>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col">
+        <!-- TopNavBar -->
+        <header
+            class="flex justify-between items-center px-6 py-3 w-full sticky top-0 z-40 bg-surface-container-lowest border-b border-surface-dim flat no shadows active:scale-95 duration-150">
+            <!-- Search Bar on Left -->
+            <div class="flex-1 flex items-center">
+                <div class="relative w-full max-w-md">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+                    <input
+                        class="w-full bg-surface border border-outline-variant rounded-lg py-2 pl-10 pr-4 font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                        placeholder="Search shared files..." type="text">
+                </div>
+            </div>
+            <!-- Trailing Icon Actions -->
+            <div class="flex items-center gap-4">
+                <button
+                    class="text-on-surface-variant hover:bg-surface-container-high rounded-full p-2 transition-colors flex items-center justify-center">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button
+                    class="text-on-surface-variant hover:bg-surface-container-high rounded-full p-2 transition-colors flex items-center justify-center">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+                <div class="w-8 h-8 rounded-full bg-surface-dim overflow-hidden ml-2 border border-outline-variant">
+                    <img alt="User avatar" class="w-full h-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfReV1CJO7_-BbZeHcfPcWr-F2aHsBh4reua_4M_U7nQJ3kKNrCQVaccWO3w8RkZJQdHHTMmsZGZ43xh-irE0EHNhZcOhy6wYhSnVA9Zzk-JzNnA-TK6UHVDQn3tVUCdCdbWjuaFGsD51fFWzUCptrL5aAqXMQrFg1l__teIOVMsGTHHUTJOPVk2DqQbcdduIZqrTUvDyr1fv3Z-X86ohqs9lM2a4ADbfflHVvCwtHfwS_5bx0lMUEPJzn-br9y5mFvfEHG26vQnbV">
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex items-center justify-center p-12 bg-slate-50/50">
+            <div
+                class="w-full max-w-4xl bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-slate-100 overflow-hidden flex h-[500px]">
+                <!-- Preview Side -->
+                <div
+                    class="w-1/2 bg-slate-100 p-12 flex items-center justify-center relative overflow-hidden border-r border-slate-100">
+                    <div class="absolute inset-0 z-10 pointer-events-none overflow-hidden">
+                        <div
+                            class="w-full h-[150px] bg-gradient-to-b from-cyan-500/0 via-cyan-500/10 to-cyan-500/0 scan-line shadow-[0_0_15px_rgba(14,116,144,0.1)]">
+                        </div>
+                    </div>
+
+                    <!-- Document Skeleton -->
+                    <div
+                        class="bg-white shadow-2xl rounded-xl p-8 w-full aspect-[3/4] relative z-0 transform -rotate-2">
+                        <div class="space-y-4 opacity-20">
+                            <div class="h-4 w-2/3 bg-slate-200 rounded"></div>
+                            <div class="space-y-2">
+                                <div class="h-2 w-full bg-slate-200 rounded"></div>
+                                <div class="h-2 w-full bg-slate-200 rounded"></div>
+                                <div class="h-2 w-4/5 bg-slate-200 rounded"></div>
+                            </div>
+                            <div
+                                class="h-32 w-full border-2 border-dashed border-slate-200 rounded-lg flex items-center justify-center">
+                                <span class="material-symbols-outlined text-4xl text-slate-200">image</span>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="h-2 w-full bg-slate-200 rounded"></div>
+                                <div class="h-2 w-5/6 bg-slate-200 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Side -->
+                <div class="w-1/2 p-12 flex flex-col justify-center">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-cyan-50 flex items-center justify-center text-cyan-700 relative">
+                            <span class="material-symbols-outlined text-2xl animate-pulse">document_scanner</span>
+                        </div>
+                        <h2 class="text-xl font-bold text-slate-900 tracking-tight">Analyzing document...</h2>
+                    </div>
+
+                    <p class="text-slate-500 mb-8 leading-relaxed text-sm">
+                        Securely extracting text, identifying structural elements, and preparing your document for the
+                        archive.
+                    </p>
+
+                    <div class="space-y-4 mb-10">
+                        <div class="flex items-center gap-3 text-cyan-700">
+                            <span class="material-symbols-outlined text-xl fill-1">check_circle</span>
+                            <span class="font-bold text-sm">Upload complete</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-slate-900">
+                            <div
+                                class="w-5 h-5 border-2 border-cyan-700 border-t-transparent rounded-full animate-spin">
+                            </div>
+                            <span class="font-bold text-sm">Extracting metadata</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-slate-300">
+                            <span class="material-symbols-outlined text-xl">radio_button_unchecked</span>
+                            <span class="font-bold text-sm">Applying secure encryption</span>
+                        </div>
+                    </div>
+
+                    <button
+                        class="flex items-center gap-2 text-slate-400 hover:text-rose-500 transition-colors text-sm font-semibold group self-start">
+                        <span
+                            class="material-symbols-outlined text-lg group-hover:rotate-90 transition-transform">close</span>
+                        Cancel processing
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+
+
+
+</body>
+
+</html>

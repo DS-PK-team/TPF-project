@@ -1,0 +1,437 @@
+<!-- Upload Queue with Tagging -->
+<!DOCTYPE html>
+
+<html class="light" lang="en" style="">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Vault &amp; Vellum - Upload Error Management</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#bec8cd",
+                        "on-secondary-container": "#54647a",
+                        "primary-fixed-dim": "#81d1f0",
+                        "on-tertiary-fixed": "#2c1600",
+                        "tertiary-container": "#965e1c",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#3f484c",
+                        "surface-variant": "#e0e3e5",
+                        "surface-dim": "#d8dadc",
+                        "secondary-container": "#d0e1fb",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#81d1f0",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "primary": "#005a71",
+                        "inverse-on-surface": "#eff1f3",
+                        "outline": "#6f787d",
+                        "surface-bright": "#f7f9fb",
+                        "tertiary": "#794602",
+                        "primary-container": "#0e7490",
+                        "on-primary-fixed-variant": "#004d62",
+                        "on-primary-container": "#d3f1ff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb86f",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#505f76",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "surface": "#f7f9fb",
+                        "surface-container-high": "#e6e8ea",
+                        "inverse-surface": "#2d3133",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-background": "#191c1e",
+                        "on-secondary-fixed": "#0b1c30",
+                        "surface-tint": "#006781",
+                        "surface-container": "#eceef0",
+                        "on-tertiary-container": "#ffe8d6",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "primary-fixed": "#b9eaff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#001f29",
+                        "background": "#f7f9fb",
+                        "surface-container-low": "#f2f4f6",
+                        "on-surface": "#191c1e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "20px",
+                        "xl": "40px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "unit": "4px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "label-sm": [
+                            "Inter"
+                        ],
+                        "label-md": [
+                            "Inter"
+                        ],
+                        "headline-sm": [
+                            "Manrope"
+                        ],
+                        "body-md": [
+                            "Inter"
+                        ],
+                        "body-lg": [
+                            "Inter"
+                        ],
+                        "headline-md": [
+                            "Manrope"
+                        ],
+                        "headline-lg": [
+                            "Manrope"
+                        ]
+                    },
+                    "fontSize": {
+                        "label-sm": [
+                            "11px",
+                            {
+                                "lineHeight": "14px",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "label-md": [
+                            "12px",
+                            {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.02em",
+                                "fontWeight": "500"
+                            }
+                        ],
+                        "headline-sm": [
+                            "18px",
+                            {
+                                "lineHeight": "26px",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "body-md": [
+                            "14px",
+                            {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "body-lg": [
+                            "16px",
+                            {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "headline-md": [
+                            "24px",
+                            {
+                                "lineHeight": "32px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "headline-lg": [
+                            "30px",
+                            {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                            }
+                        ]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-[#F8FAFC] dark:bg-slate-950 font-['Inter'] text-on-surface antialiased flex h-screen overflow-hidden">
+    <!-- SideNavBar -->
+    <nav
+        class="bg-white dark:bg-slate-900 h-screen w-64 border-r rounded-none border-r border-slate-100 dark:border-slate-800 shadow-[4px_0_12px_rgba(0,0,0,0.03)] flex flex-col h-full p-4 gap-2 z-50 hidden md:flex shrink-0">
+        <div class="flex items-center gap-3 px-3 py-4 mb-4">
+            <div
+                class="w-10 h-10 rounded-lg bg-cyan-50 dark:bg-cyan-900/20 flex items-center justify-center text-cyan-700 dark:text-cyan-500">
+                <span class="material-symbols-outlined"
+                    style='font-variation-settings: "FILL" 1;'>assured_workload</span>
+            </div>
+            <div>
+                <div class="text-lg font-black text-slate-900 dark:text-white">Document Vault</div>
+                <div class="font-['Manrope'] text-sm font-semibold text-slate-500 dark:text-slate-400">Secure Storage
+                </div>
+            </div>
+        </div>
+        <button
+            class="w-full bg-cyan-700 hover:bg-cyan-800 text-white font-['Manrope'] text-sm font-semibold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 mb-6 transition-colors shadow-sm">
+            <span class="material-symbols-outlined text-[20px]">add</span>
+            New Document
+        </button>
+        <div class="flex-1 flex flex-col gap-1">
+            <a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all font-['Manrope'] text-sm font-semibold active:opacity-80 rounded-lg group"
+                href="#">
+                <span class="material-symbols-outlined group-hover:scale-110 transition-transform">inventory_2</span>
+                Archive
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-400 rounded-lg transition-all font-['Manrope'] text-sm font-semibold active:opacity-80 group"
+                href="#">
+                <span class="material-symbols-outlined group-hover:scale-110 transition-transform"
+                    style='font-variation-settings: "FILL" 1;'>upload_file</span>
+                Upload
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all font-['Manrope'] text-sm font-semibold active:opacity-80 rounded-lg group"
+                href="#">
+                <span class="material-symbols-outlined group-hover:scale-110 transition-transform">group</span>
+                Shared
+            </a>
+        </div>
+        <div class="mt-auto pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-1">
+            <div
+                class="px-3 py-2 flex items-center gap-2 text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2">
+                <span class="material-symbols-outlined text-[16px] text-emerald-500">cloud_done</span>
+                All files synced
+            </div>
+            <a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all font-['Manrope'] text-sm font-semibold active:opacity-80 rounded-lg group"
+                href="#">
+                <span class="material-symbols-outlined group-hover:scale-110 transition-transform">settings</span>
+                Settings
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 transition-all font-['Manrope'] text-sm font-semibold active:opacity-80 rounded-lg group text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                href="#">
+                <span class="material-symbols-outlined group-hover:scale-110 transition-transform">logout</span>
+                Log Out
+            </a>
+        </div>
+    </nav>
+    <!-- Main Content Area -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden relative">
+        <!-- TopNavBar -->
+        <header
+            class="bg-[#F8FAFC] dark:bg-slate-950 font-['Manrope'] text-sm font-medium tracking-tight docked full-width top-0 border-b border-slate-200 dark:border-slate-800 flat no shadows flex justify-between items-center px-6 py-3 w-full sticky top-0 z-40 shrink-0">
+            <div class="flex items-center gap-4">
+                <div class="text-xl font-bold text-cyan-800 dark:text-cyan-400 md:hidden">Vault &amp; Vellum</div>
+                <div class="relative hidden sm:block">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+                    <input
+                        class="pl-10 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full text-sm focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 w-64 transition-all"
+                        placeholder="Search vault..." type="text" />
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <button
+                    class="w-10 h-10 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors active:scale-95 duration-150 relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span
+                        class="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full border-2 border-[#F8FAFC] dark:border-slate-950"></span>
+                </button>
+                <button
+                    class="w-10 h-10 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors active:scale-95 duration-150">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+                <div
+                    class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden ml-2 cursor-pointer border-2 border-white dark:border-slate-800 shadow-sm active:scale-95 duration-150 transition-transform">
+                    <img alt="User avatar" class="w-full h-full object-cover"
+                        data-alt="A professional headshot of a person, well-lit studio photography, neutral background, modern corporate style."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtJNZuMZj_DmvU3ie5-OQS8MWgeZpqNv6M9If0DC_GURCDh5dhO6836TQPv_qJDekeamil426odmt9w3GiIjui3CkhJDd_yduVRVeRRQoN4X4oo8ulaxthzJX1DqpREi2XWbTNwfzyL6wfc9jgI4VoKioCWEqco3CnOwEw61aG-TH4cCFJH6icQJ1dXhBuKBsOuOM_oWOdpTmXW41NCztybs6keF4Ss8EOjJjROnX-I06ZgbJJan7vNo1SLz1snHPXLCSREoMQzxg" />
+                </div>
+            </div>
+        </header>
+        <!-- Canvas -->
+        <main class="flex-1 overflow-y-auto p-6 md:p-8 lg:p-10 pb-32">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-8">
+                    <h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Upload Queue</h1>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Review items before finalizing upload.
+                        2 items require attention.</p>
+                </div>
+                <div
+                    class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] border border-surface-variant overflow-hidden">
+                    <!-- Error Item 1: Unsupported Format -->
+                    <div class="flex items-start gap-4 p-5 border-b border-surface-variant bg-error-container/20">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-error-container flex items-center justify-center text-error shrink-0">
+                            <span class="material-symbols-outlined text-[24px]">block</span>
+                        </div>
+                        <div class="flex-1 min-w-0 pt-1">
+                            <div class="flex items-center justify-between gap-4 mb-1">
+                                <h3 class="font-headline-sm text-headline-sm text-on-surface truncate">
+                                    Q3_Financial_Projections.exe</h3>
+                                <span
+                                    class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-error-container text-on-error-container whitespace-nowrap">Unsupported
+                                    Format</span>
+                            </div>
+                            <p class="font-body-md text-body-md text-on-surface-variant mb-3">Executables are not
+                                permitted for security reasons.</p>
+                            <div class="flex flex-wrap gap-2 mb-3"><span
+                                    class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">Archive</span><span
+                                    class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">Finances</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button
+                                    class="font-label-md text-label-md text-error hover:text-on-error-container transition-colors flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[16px]">delete</span>
+                                    Remove
+                                </button>
+                                <button
+                                    class="font-label-md text-label-md text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-1 ml-1 font-['Manrope']"><span
+                                        class="material-symbols-outlined text-[16px]">edit_location</span>Edit
+                                    Tags</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Error Item 2: Blurry Image -->
+                    <div class="flex items-start gap-4 p-5 border-b border-surface-variant bg-tertiary-fixed/20">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-tertiary-fixed flex items-center justify-center text-tertiary shrink-0 overflow-hidden relative group">
+                            <img alt="Blurry receipt" class="w-full h-full object-cover opacity-60"
+                                data-alt="A blurred, out of focus photograph of a paper receipt on a dark desk surface, poorly lit, indicating low quality scan."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvxJoVpk48TjNoHJORwWv2-yqMPTW8rwbuhcQ-J0TYZWSWLkpFExtnc8R6M9PDSUZIu7b85rPIJ8O_UQYVjNGreXnwFOywSD32bQB2vBBv-3KfH4S0abUaANOqiUjXsp5tMRUnFNx9Um9xUkSHtqVjoGj3trQHlFrAoRVjh8ArXxD7Mi855emxFxXE79rsfXecBjM1WsypmC0cspeGD2hrlKcoUdxnxwhHJtDeAwPXVCNPz1oGKX55jyrXpkpBJ0NW4yQ8x2kAMW8" />
+                            <div class="absolute inset-0 bg-tertiary/10 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[24px] text-tertiary">warning</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 min-w-0 pt-1">
+                            <div class="flex items-center justify-between gap-4 mb-1">
+                                <h3 class="font-headline-sm text-headline-sm text-on-surface truncate">
+                                    Lunch_Receipt_Oct23.jpg</h3>
+                                <span
+                                    class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed whitespace-nowrap">Low
+                                    Quality</span>
+                                <button
+                                    class="font-label-md text-label-md text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-1 font-['Manrope']"><span
+                                        class="material-symbols-outlined text-[16px]">edit_location</span>Edit
+                                    Tags</button>
+                            </div>
+                            <p class="font-body-md text-body-md text-on-surface-variant mb-3">This image appears blurry.
+                                Text extraction may fail.</p>
+                            <div class="flex flex-wrap gap-2 mb-3"><span
+                                    class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">Archive</span><span
+                                    class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">Receipts</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <button
+                                    class="font-label-md text-label-md text-tertiary hover:text-on-tertiary-fixed transition-colors flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[16px]">refresh</span>
+                                    Retry Upload
+                                </button>
+                                <button
+                                    class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[16px]">delete</span>
+                                    Remove
+                                </button>
+                                <button
+                                    class="font-label-md text-label-md text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-1 font-['Manrope']"><span
+                                        class="material-symbols-outlined text-[16px]">edit_location</span>Edit
+                                    Tags</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Success Item 1 -->
+                    <div class="flex items-center gap-4 p-5 border-b border-surface-variant">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shrink-0">
+                            <span class="material-symbols-outlined text-[24px]">description</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface truncate mb-1">
+                                Client_Agreement_V2.pdf</h3>
+                            <p class="font-body-md text-body-md text-on-surface-variant">2.4 MB • 12 Pages • <span
+                                    class="inline-flex gap-2 ml-1"><span
+                                        class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">Client
+                                        Docs</span><span
+                                        class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">Agreements</span></span>
+                            </p>
+                            <div class="flex items-center mt-2"><button
+                                    class="font-label-md text-label-md text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-1 font-['Manrope']"><span
+                                        class="material-symbols-outlined text-[16px]">edit_location</span>Edit
+                                    Tags</button></div>
+                        </div>
+                        <div class="flex items-center gap-2 text-primary-container">
+                            <span class="material-symbols-outlined">check_circle</span>
+                            <span class="font-label-md text-label-md hidden sm:inline">Ready</span>
+                        </div>
+                    </div>
+                    <!-- Success Item 2 -->
+                    <div class="flex items-center gap-4 p-5">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shrink-0 overflow-hidden">
+                            <img alt="Clear document scan" class="w-full h-full object-cover"
+                                data-alt="A clear, crisp, overhead photograph of a printed resume document on a clean desk, well-lit, professional scan quality."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlkvrAYmcmd1bV2dUc6zO7FeJLnmn1nw1LYavd3o7d_xrJ5ElWhLUaqcb4wxAffk2Dnmw1EtKcJNvRcMKnD6o8RWY5zSKlRAVSKg2g55qBgtV2ir9W5ElgNF4rGSMK4HKzFiRYi2bXXISoFrK8WEL1Rs24CgrDhwMHA6SCJq8EJMr1LeVxlmrGLEKsDHfTwWMK8BayAETJzYPSUFgAdbDCWZQyWqRfb-jsIy1yVeDsXVPsMwiEMK4HTR04CFMXmoz9fvkDxSHfScM" />
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface truncate mb-1">
+                                Resume_Update_2024.jpg</h3>
+                            <p class="font-body-md text-body-md text-on-surface-variant">1.1 MB • Image Scan • <span
+                                    class="inline-flex gap-2 ml-1"><span
+                                        class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">Career</span><span
+                                        class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">Personal</span></span>
+                            </p>
+                            <div class="flex items-center mt-2"><button
+                                    class="font-label-md text-label-md text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-1 font-['Manrope']"><span
+                                        class="material-symbols-outlined text-[16px]">edit_location</span>Edit
+                                    Tags</button></div>
+                        </div>
+                        <div class="flex items-center gap-2 text-primary-container">
+                            <span class="material-symbols-outlined">check_circle</span>
+                            <span class="font-label-md text-label-md hidden sm:inline">Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Fixed Action Bar -->
+        <div class="fixed bottom-8 flex items-center gap-4 z-50 w-full justify-center left-0 right-0 px-6"
+            style="left: 0px;">
+            <div
+                class="backdrop-blur-md rounded-xl shadow-xl transition-colors cursor-pointer p-1.5 bg-error hover:bg-on-error-container">
+                <button
+                    class="font-label-md text-label-md px-4 py-2 whitespace-nowrap font-bold text-white font-['Manrope']">
+                    Remove all errors and start over
+                </button>
+            </div>
+            <div
+                class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 p-1.5 rounded-xl shadow-xl hover:bg-white dark:hover:bg-slate-800 transition-colors cursor-pointer font-['Manrope']">
+                <button
+                    class="font-label-md text-label-md text-on-surface-variant px-6 py-2 whitespace-nowrap font-semibold">
+                    Cancel
+                </button>
+            </div>
+            <div
+                class="text-on-primary-container backdrop-blur-md border border-primary/20 p-1.5 rounded-xl shadow-xl hover:bg-primary transition-colors cursor-pointer bg-cyan-700 hover:bg-cyan-800">
+                <button class="font-label-md text-label-md px-6 py-2 whitespace-nowrap font-bold font-['Manrope']">
+                    Approve 2 valid files
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

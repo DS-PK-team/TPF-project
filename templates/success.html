@@ -1,0 +1,220 @@
+<!-- Success with Correct Layout -->
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Vault &amp; Vellum - Success</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#794602",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffdcbd",
+                        "primary-fixed-dim": "#81d1f0",
+                        "on-primary-container": "#d3f1ff",
+                        "on-primary-fixed-variant": "#004d62",
+                        "on-primary-fixed": "#001f29",
+                        "on-surface": "#191c1e",
+                        "outline": "#6f787d",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container": "#eceef0",
+                        "on-surface-variant": "#3f484c",
+                        "surface-tint": "#006781",
+                        "tertiary-container": "#965e1c",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "outline-variant": "#bec8cd",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "secondary-container": "#d0e1fb",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "surface-variant": "#e0e3e5",
+                        "on-tertiary-container": "#ffe8d6",
+                        "primary": "#005a71",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#505f76",
+                        "primary-fixed": "#b9eaff",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary-fixed": "#0b1c30",
+                        "primary-container": "#0e7490",
+                        "inverse-primary": "#81d1f0",
+                        "tertiary-fixed-dim": "#ffb86f",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f7f9fb",
+                        "surface-container-high": "#e6e8ea",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface": "#f7f9fb",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-dim": "#d8dadc",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary-container": "#54647a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xl": "40px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "unit": "4px",
+                        "container-max": "1280px",
+                        "gutter": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Manrope"],
+                        "headline-sm": ["Manrope"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["30px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background text-on-background flex h-screen overflow-hidden antialiased">
+    <nav
+        class="h-screen w-64 border-r rounded-none border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-[4px_0_12px_rgba(0,0,0,0.03)] flex flex-col p-4 gap-2 z-50 shrink-0 hidden md:flex font-['Manrope'] text-sm font-semibold">
+        <div class="flex items-center gap-3 mb-6 px-2 mt-2">
+            <div class="w-10 h-10 rounded-lg bg-cyan-700 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-white"
+                    style="font-variation-settings: 'FILL' 1;">assured_workload</span>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-lg font-black text-slate-900 dark:text-white leading-tight">Document Vault</span>
+                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">Secure Storage</span>
+            </div>
+        </div>
+        <button
+            class="w-full bg-cyan-700 text-white rounded-lg py-2.5 px-4 mb-4 flex items-center justify-center gap-2 text-sm font-semibold hover:bg-cyan-800 transition-all active:opacity-80">
+            <span class="material-symbols-outlined text-[18px]">add</span>
+            New Document
+        </button>
+        <div class="flex-1 flex flex-col gap-1">
+            <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-lg flex items-center gap-3 px-3 py-2.5 transition-all active:opacity-80"
+                href="#">
+                <span class="material-symbols-outlined">inventory_2</span>
+                Archive
+            </a>
+            <a class="bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-400 rounded-lg flex items-center gap-3 px-3 py-2.5 transition-all active:opacity-80"
+                href="#">
+                <span class="material-symbols-outlined">upload_file</span>
+                Upload
+            </a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-lg flex items-center gap-3 px-3 py-2.5 transition-all active:opacity-80"
+                href="#">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+                Shared
+            </a>
+        </div>
+        <div class="flex flex-col gap-1 pt-4 border-t border-slate-100 dark:border-slate-800">
+            <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-lg flex items-center gap-3 px-3 py-2.5 transition-all active:opacity-80"
+                href="#">
+                <span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-lg flex items-center gap-3 px-3 py-2.5 transition-all active:opacity-80"
+                href="#">
+                <span class="material-symbols-outlined">logout</span>
+                Log Out
+            </a>
+            <div class="mt-4 px-3 flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                <span class="text-[11px] font-semibold text-slate-500 dark:text-slate-400">All files synced</span>
+            </div>
+        </div>
+    </nav>
+    <div class="flex-1 flex flex-col h-screen overflow-hidden relative">
+        <header
+            class="flex justify-between items-center px-6 py-3 w-full sticky top-0 z-40 bg-surface-container-lowest border-b border-surface-dim flat no shadows active:scale-95 duration-150">
+            <div class="flex-1 flex items-center">
+                <div class="relative w-full max-w-md">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+                    <input
+                        class="w-full bg-surface border border-outline-variant rounded-lg py-2 pl-10 pr-4 font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                        placeholder="Search shared files..." type="text" />
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button
+                    class="text-on-surface-variant hover:bg-surface-container-high rounded-full p-2 transition-colors flex items-center justify-center">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button
+                    class="text-on-surface-variant hover:bg-surface-container-high rounded-full p-2 transition-colors flex items-center justify-center">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+                <div class="w-8 h-8 rounded-full bg-surface-dim overflow-hidden ml-2 border border-outline-variant">
+                    <img alt="User avatar" class="w-full h-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfReV1CJO7_-BbZeHcfPcWr-F2aHsBh4reua_4M_U7nQJ3kKNrCQVaccWO3w8RkZJQdHHTMmsZGZ43xh-irE0EHNhZcOhy6wYhSnVA9Zzk-JzNnA-TK6UHVDQn3tVUCdCdbWjuaFGsD51fFWzUCptrL5aAqXMQrFg1l__teIOVMsGTHHUTJOPVk2DqQbcdduIZqrTUvDyr1fv3Z-X86ohqs9lM2a4ADbfflHVvCwtHfwS_5bx0lMUEPJzn-br9y5mFvfEHG26vQnbV" />
+                </div>
+            </div>
+        </header>
+        <main class="flex-1 overflow-y-auto flex items-center justify-center p-xl">
+            <div
+                class="w-full max-w-md bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] p-xl flex flex-col items-center text-center">
+                <div class="mb-lg">
+                    <span class="material-symbols-outlined text-primary text-[80px]"
+                        style="font-variation-settings: 'FILL' 1;">
+                        check_circle
+                    </span>
+                </div>
+                <h1 class="font-headline-lg text-headline-lg text-on-surface mb-xl">
+                    Document saved
+                </h1>
+                <div class="flex flex-col w-full gap-md sm:flex-row">
+                    <button
+                        class="flex-1 py-3 px-6 rounded-lg font-label-md text-label-md text-on-surface bg-transparent hover:bg-surface-variant transition-colors duration-200">
+                        Go to folder
+                    </button>
+                    <button
+                        class="flex-1 py-3 px-6 rounded-lg font-label-md text-label-md bg-primary text-on-primary shadow-sm hover:opacity-90 transition-opacity duration-200">
+                        Upload next
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
