@@ -6,8 +6,18 @@
   body {
     font-family: 'Inter', sans-serif;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Manrope', sans-serif;
   }
+}
+
+/* Scan-line animation for ProcessingView */
+@keyframes scanDown {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.scan-line {
+  animation: scanDown 2.2s ease-in-out infinite;
 }
