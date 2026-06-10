@@ -4,7 +4,6 @@ import type { Document, DocumentType } from '../types';
 export interface DocumentCardProps {
   document: Document;
   isShared?: boolean;
-  onClick?: (id: string) => void;
   onDownload?: (id: string) => void;
   onManageAccess?: (id: string) => void;
   onMoveToPrivate?: (id: string) => void;
@@ -28,7 +27,6 @@ function formatDate(iso: string): string {
 export default function DocumentCard({
   document,
   isShared = false,
-  onClick,
   onDownload,
   onManageAccess,
   onMoveToPrivate,
@@ -51,17 +49,16 @@ export default function DocumentCard({
 
   const handleCardClick = () => {
     if (menuOpen) return;
-    onClick?.(document.id);
     onDownload?.(document.id); // clicking card triggers download notification
   };
 
   return (
     <article
       onClick={handleCardClick}
-      className="bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] border border-outline-variant/30 overflow-hidden flex flex-col group hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-all duration-200 cursor-pointer relative"
+      className="bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] border border-outline-variant/30 flex flex-col group hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-all duration-200 cursor-pointer relative"
     >
       {/* Thumbnail */}
-      <div className="aspect-[4/3] bg-surface-container-low relative overflow-hidden border-b border-outline-variant/20">
+      <div className="aspect-[4/3] bg-surface-container-low relative overflow-hidden border-b border-outline-variant/20 rounded-t-xl">
         <img
           src={document.thumbnailUrl}
           alt={document.title}

@@ -192,7 +192,6 @@ export default function ArchiveView() {
                 key={doc.id}
                 document={doc}
                 isShared={false}
-                onClick={() => { navigate(`/archive/${doc.id}`); handleDownload(doc.id); }}
                 onDownload={handleDownload}
                 onManageAccess={handleManageAccess}
               />

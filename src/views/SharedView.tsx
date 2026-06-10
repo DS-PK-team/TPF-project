@@ -175,7 +175,6 @@ export default function SharedView() {
                 key={doc.id}
                 document={doc}
                 isShared={true}
-                onClick={() => handleDownload(doc.id)}
                 onDownload={handleDownload}
                 onManageAccess={handleManageAccess}
                 onMoveToPrivate={handleMoveToPrivate}

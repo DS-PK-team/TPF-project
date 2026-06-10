@@ -10,7 +10,7 @@ export const PERSONAL_DOCUMENTS: Document[] = [
     fileSize: '2.4 MB',
     tags: ['Invoice', 'Q3', 'Finance'],
     owner: 'archivist@vaultandvellum.io',
-    uploadDate: '2023-10-12',
+    uploadDate: '2026-06-08',
     isPrivate: true,
   },
   {
@@ -22,7 +22,7 @@ export const PERSONAL_DOCUMENTS: Document[] = [
     fileSize: '850 KB',
     tags: ['Contract', 'NDA', 'Legal'],
     owner: 'archivist@vaultandvellum.io',
-    uploadDate: '2023-09-28',
+    uploadDate: '2026-06-05',
     isPrivate: true,
   },
   {
@@ -34,7 +34,7 @@ export const PERSONAL_DOCUMENTS: Document[] = [
     fileSize: '1.1 MB',
     tags: ['Receipt', 'Expenses'],
     owner: 'archivist@vaultandvellum.io',
-    uploadDate: '2023-09-15',
+    uploadDate: '2026-06-01',
     isPrivate: true,
   },
   {
@@ -46,7 +46,7 @@ export const PERSONAL_DOCUMENTS: Document[] = [
     fileSize: '14.5 MB',
     tags: ['Blueprint', 'Office', 'Architecture'],
     owner: 'archivist@vaultandvellum.io',
-    uploadDate: '2023-08-04',
+    uploadDate: '2026-05-15',
     isPrivate: true,
   },
   {
@@ -58,7 +58,7 @@ export const PERSONAL_DOCUMENTS: Document[] = [
     fileSize: '320 KB',
     tags: ['Warranty', 'Home'],
     owner: 'archivist@vaultandvellum.io',
-    uploadDate: '2023-07-19',
+    uploadDate: '2026-03-20',
     isPrivate: true,
   },
   {
@@ -70,7 +70,7 @@ export const PERSONAL_DOCUMENTS: Document[] = [
     fileSize: '5.7 MB',
     tags: ['Report', 'Finance', 'Q2'],
     owner: 'archivist@vaultandvellum.io',
-    uploadDate: '2023-06-30',
+    uploadDate: '2025-11-15',
     isPrivate: true,
   },
 ];

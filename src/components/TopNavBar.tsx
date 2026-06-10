@@ -19,6 +19,7 @@ const NOTIFICATIONS = [
 
 export default function TopNavBar({ onSearchQueryChange, avatarUrl, onOpenSettings }: TopNavBarProps) {
   const [notifOpen, setNotifOpen] = useState(false);
+  const [hasUnread, setHasUnread] = useState(true);
   const notifRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -59,7 +60,9 @@ export default function TopNavBar({ onSearchQueryChange, avatarUrl, onOpenSettin
             className={`w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors relative ${notifOpen ? 'bg-surface-container-low text-primary' : ''}`}
           >
             <span className="material-symbols-outlined text-[24px]">notifications</span>
-            <span className="absolute top-2 right-2 w-2 h-2 bg-error rounded-full" />
+            {hasUnread && (
+              <span className="absolute top-2 right-2 w-2 h-2 bg-error rounded-full" />
+            )}
           </button>
 
           {notifOpen && (
@@ -89,7 +92,7 @@ export default function TopNavBar({ onSearchQueryChange, avatarUrl, onOpenSettin
               {/* Footer */}
               <div className="px-md py-sm border-t border-surface-container-high">
                 <button
-                  onClick={() => setNotifOpen(false)}
+                  onClick={() => { setHasUnread(false); setNotifOpen(false); }}
                   className="w-full text-center font-body text-label-md text-primary hover:text-primary-container transition-colors"
                 >
                   Mark all as read
