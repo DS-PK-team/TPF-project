@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 
 interface TopNavBarProps {
+  searchQuery?: string;
   onSearchQueryChange?: (val: string) => void;
   avatarUrl?: string;
   onOpenSettings?: () => void;
@@ -17,7 +18,7 @@ const NOTIFICATIONS = [
   { id: 'n4', icon: 'auto_awesome',  title: 'AI suggested 3 tags',              desc: 'For "Office Expansion Floorplan V2".', time: '16:55' },
 ];
 
-export default function TopNavBar({ onSearchQueryChange, avatarUrl, onOpenSettings }: TopNavBarProps) {
+export default function TopNavBar({ searchQuery = '', onSearchQueryChange, avatarUrl, onOpenSettings }: TopNavBarProps) {
   const [notifOpen, setNotifOpen] = useState(false);
   const [hasUnread, setHasUnread] = useState(true);
   const notifRef = useRef<HTMLDivElement>(null);
@@ -44,6 +45,7 @@ export default function TopNavBar({ onSearchQueryChange, avatarUrl, onOpenSettin
           <input
             type="text"
             placeholder="Szukaj dokumentów, tagów, kwot..."
+            value={searchQuery}
             onChange={e => onSearchQueryChange?.(e.target.value)}
             className="w-full bg-surface-container-low border border-outline-variant rounded-lg pl-[44px] pr-md py-sm text-body-md text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary focus:bg-white transition-colors"
           />

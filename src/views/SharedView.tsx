@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import DocumentCard from '../components/DocumentCard';
 import Toast from '../components/Toast';
 import ManageAccessModal from '../components/ManageAccessModal';
+import { useSearch } from '../context/SearchContext';
 import { getSharedDocuments } from '../services/documentsService';
 import type { Document } from '../types';
 
@@ -19,9 +20,9 @@ function SkeletonCard() {
 }
 
 export default function SharedView() {
+  const { searchQuery } = useSearch();
   const [documents, setDocuments] = useState<Document[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchQuery] = useState('');
   const [toast, setToast] = useState<{ message: string; icon: string } | null>(null);
   const [manageDoc, setManageDoc] = useState<Document | null>(null);
 

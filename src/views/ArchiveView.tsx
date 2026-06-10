@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import DocumentCard from '../components/DocumentCard';
 import Toast from '../components/Toast';
 import ManageAccessModal from '../components/ManageAccessModal';
+import { useSearch } from '../context/SearchContext';
 import { getPersonalDocuments } from '../services/documentsService';
 import type { Document, DocumentType } from '../types';
 
@@ -53,12 +54,12 @@ function SkeletonCard() {
 
 export default function ArchiveView() {
   const navigate = useNavigate();
+  const { searchQuery, setSearchQuery } = useSearch();
   const [documents, setDocuments] = useState<Document[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState<Filter>('All');
   const [dateFilter, setDateFilter] = useState<DateFilter>('any');
   const [dateDropdownOpen, setDateDropdownOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const [toast, setToast] = useState<{ message: string; icon: string } | null>(null);
   const [manageDoc, setManageDoc] = useState<Document | null>(null);
 
@@ -97,6 +98,11 @@ export default function ArchiveView() {
     showToast('Document shared successfully', 'share');
     setManageDoc(null);
   }, [manageDoc, showToast]);
+
+  const handleDelete = useCallback((id: string) => {
+    setDocuments(prev => prev.filter(d => d.id !== id));
+    showToast('Document deleted', 'delete');
+  }, [showToast]);
 
   const dateLabel = DATE_OPTIONS.find(o => o.value === dateFilter)?.label ?? 'Any Date';
 
@@ -194,6 +200,7 @@ export default function ArchiveView() {
                 isShared={false}
                 onDownload={handleDownload}
                 onManageAccess={handleManageAccess}
+                onDelete={handleDelete}
               />
             ))}
           </div>

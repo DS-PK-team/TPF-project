@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import SideNavBar from './SideNavBar';
 import TopNavBar from './TopNavBar';
+import { SearchProvider, useSearch } from '../context/SearchContext';
 
 type SyncStatus = 'idle' | 'syncing' | 'synced';
 
-export default function AppShell() {
+function AppShellInner() {
   const location = useLocation();
   const navigate = useNavigate();
   const path = location.pathname;
+  const { searchQuery, setSearchQuery } = useSearch();
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
@@ -33,6 +35,12 @@ export default function AppShell() {
     setTimeout(() => setSyncStatus('synced'), 2500);
   };
 
+  useEffect(() => {
+    if (path !== '/archive' && path !== '/shared') {
+      setSearchQuery('');
+    }
+  }, [path, setSearchQuery]);
+
   const isNoNavRoute = path === '/' || path === '/register' || path === '/success';
   const isProcessingRoute = path === '/processing';
 
@@ -49,7 +57,13 @@ export default function AppShell() {
       <SideNavBar onOpenSettings={() => setIsSettingsOpen(true)} />
 
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
-        {!isProcessingRoute && <TopNavBar onOpenSettings={() => setIsSettingsOpen(true)} />}
+        {!isProcessingRoute && (
+          <TopNavBar
+            searchQuery={searchQuery}
+            onSearchQueryChange={setSearchQuery}
+            onOpenSettings={() => setIsSettingsOpen(true)}
+          />
+        )}
         <main className="flex-1 overflow-y-auto bg-background flex flex-col">
           <Outlet />
         </main>
@@ -210,5 +224,13 @@ export default function AppShell() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function AppShell() {
+  return (
+    <SearchProvider>
+      <AppShellInner />
+    </SearchProvider>
   );
 }

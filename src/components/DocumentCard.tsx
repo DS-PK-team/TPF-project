@@ -7,6 +7,7 @@ export interface DocumentCardProps {
   onDownload?: (id: string) => void;
   onManageAccess?: (id: string) => void;
   onMoveToPrivate?: (id: string) => void;
+  onDelete?: (id: string) => void;
 }
 
 const TYPE_BADGE: Record<DocumentType, { label: string; className: string }> = {
@@ -30,6 +31,7 @@ export default function DocumentCard({
   onDownload,
   onManageAccess,
   onMoveToPrivate,
+  onDelete,
 }: DocumentCardProps) {
   const badge = TYPE_BADGE[document.documentType];
   const [menuOpen, setMenuOpen] = useState(false);
@@ -101,7 +103,7 @@ export default function DocumentCard({
                   onClick={() => { setMenuOpen(false); onManageAccess?.(document.id); }}
                   className="w-full flex items-center gap-sm px-md py-sm hover:bg-surface-container transition-colors text-on-surface font-body text-label-md text-left"
                 >
-                  <span className="material-symbols-outlined text-[18px] text-outline">manage_accounts</span>
+                  <span className="material-symbols-outlined text-[18px] text-outline">person_add</span>
                   Manage Access
                 </button>
                 {isShared && (
@@ -112,6 +114,18 @@ export default function DocumentCard({
                     <span className="material-symbols-outlined text-[18px]">lock</span>
                     Move to Private
                   </button>
+                )}
+                {!isShared && onDelete && (
+                  <>
+                    <div className="h-px bg-outline-variant/20 my-1 mx-md" />
+                    <button
+                      onClick={() => { setMenuOpen(false); onDelete(document.id); }}
+                      className="w-full flex items-center gap-sm px-md py-sm hover:bg-error-container/20 transition-colors text-error font-body text-label-md text-left"
+                    >
+                      <span className="material-symbols-outlined text-[18px]">delete</span>
+                      Delete
+                    </button>
+                  </>
                 )}
               </div>
             )}
