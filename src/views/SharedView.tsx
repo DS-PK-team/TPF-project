@@ -1,10 +1,23 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import DocumentCard from '../components/DocumentCard';
 import Toast from '../components/Toast';
 import ManageAccessModal from '../components/ManageAccessModal';
 import { useSearch } from '../context/SearchContext';
 import { getSharedDocuments } from '../services/documentsService';
-import type { Document } from '../types';
+import type { Document, DocumentType } from '../types';
+
+const CURRENT_USER = 'archivist@vaultandvellum.io';
+
+type TypeFilter = 'All' | DocumentType;
+
+function matchesShareFilter(owner: string, withMe: boolean, byMe: boolean): boolean {
+  if (!withMe && !byMe) return true;
+  const isWithMe = owner !== CURRENT_USER;
+  const isByMe = owner === CURRENT_USER;
+  return (withMe && isWithMe) || (byMe && isByMe);
+}
+
+const TYPE_FILTERS: TypeFilter[] = ['All', 'Invoice', 'Contract', 'Receipt', 'Blueprint', 'Report', 'Other'];
 
 function SkeletonCard() {
   return (
@@ -20,13 +33,18 @@ function SkeletonCard() {
 }
 
 export default function SharedView() {
-  const { searchQuery } = useSearch();
+  const { searchQuery, setSearchQuery } = useSearch();
   const [documents, setDocuments] = useState<Document[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [toast, setToast] = useState<{ message: string; icon: string } | null>(null);
   const [manageDoc, setManageDoc] = useState<Document | null>(null);
 
-  // Invite form state
+  const [withMeFilter, setWithMeFilter] = useState(false);
+  const [byMeFilter, setByMeFilter] = useState(false);
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>('All');
+  const [filterDropdownOpen, setFilterDropdownOpen] = useState(false);
+  const filterRef = useRef<HTMLDivElement>(null);
+
   const [inviteOpen, setInviteOpen] = useState(false);
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteSent, setInviteSent] = useState(false);
@@ -36,10 +54,34 @@ export default function SharedView() {
     getSharedDocuments().then((docs) => { setDocuments(docs); setIsLoading(false); });
   }, []);
 
-  const filtered = useMemo(
-    () => documents.filter(d => d.title.toLowerCase().includes(searchQuery.toLowerCase())),
-    [documents, searchQuery]
-  );
+  useEffect(() => {
+    if (!filterDropdownOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (filterRef.current && !filterRef.current.contains(e.target as Node)) {
+        setFilterDropdownOpen(false);
+      }
+    };
+    window.addEventListener('mousedown', handler);
+    return () => window.removeEventListener('mousedown', handler);
+  }, [filterDropdownOpen]);
+
+  const filtered = useMemo(() => {
+    return documents.filter((doc) => {
+      const matchesSearch = doc.title.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesShare = matchesShareFilter(doc.owner, withMeFilter, byMeFilter);
+      const matchesType = typeFilter === 'All' || doc.documentType === typeFilter;
+      return matchesSearch && matchesShare && matchesType;
+    });
+  }, [documents, searchQuery, withMeFilter, byMeFilter, typeFilter]);
+
+  const hasActiveFilters = withMeFilter || byMeFilter || typeFilter !== 'All' || !!searchQuery;
+
+  const clearFilters = () => {
+    setWithMeFilter(false);
+    setByMeFilter(false);
+    setTypeFilter('All');
+    setSearchQuery('');
+  };
 
   const showToast = useCallback((message: string, icon = 'info') => {
     setToast({ message, icon });
@@ -141,6 +183,66 @@ export default function SharedView() {
           </div>
         </div>
 
+        {/* Share direction + type filters */}
+        <div className="flex items-center gap-sm mb-lg">
+          <div className="flex items-center gap-sm overflow-x-auto pb-2 min-w-0 flex-1">
+            <button
+              onClick={() => setWithMeFilter(v => !v)}
+              className={`px-4 py-1.5 rounded-full font-body text-label-md transition-colors whitespace-nowrap ${
+                withMeFilter
+                  ? 'bg-primary-container text-on-primary-container'
+                  : 'bg-surface-container-high text-on-surface hover:bg-surface-variant'
+              }`}
+            >
+              Shared with me
+            </button>
+            <button
+              onClick={() => setByMeFilter(v => !v)}
+              className={`px-4 py-1.5 rounded-full font-body text-label-md transition-colors whitespace-nowrap ${
+                byMeFilter
+                  ? 'bg-primary-container text-on-primary-container'
+                  : 'bg-surface-container-high text-on-surface hover:bg-surface-variant'
+              }`}
+            >
+              Shared by me
+            </button>
+          </div>
+
+          <div className="w-px h-4 bg-outline-variant shrink-0" />
+
+          <div ref={filterRef} className="relative shrink-0">
+            <button
+              onClick={() => setFilterDropdownOpen(v => !v)}
+              className={`flex items-center gap-1 px-3 py-1.5 rounded-lg font-body text-label-md transition-colors ${
+                typeFilter !== 'All'
+                  ? 'bg-primary text-on-primary'
+                  : 'text-on-surface-variant hover:bg-surface-container-highest'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[16px]">filter_list</span>
+              {typeFilter === 'All' ? 'Filter' : typeFilter}
+            </button>
+            {filterDropdownOpen && (
+              <div className="absolute right-0 top-10 z-50 bg-surface-container-lowest border border-surface-variant rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.1)] w-44 py-1">
+                {TYPE_FILTERS.map((f) => (
+                  <button
+                    key={f}
+                    onClick={() => { setTypeFilter(f); setFilterDropdownOpen(false); }}
+                    className={`w-full flex items-center gap-sm px-md py-sm hover:bg-surface-container transition-colors font-body text-label-md text-left ${
+                      typeFilter === f ? 'text-primary font-semibold' : 'text-on-surface'
+                    }`}
+                  >
+                    {typeFilter === f && (
+                      <span className="material-symbols-outlined text-[16px]">check</span>
+                    )}
+                    {f === 'All' ? 'All types' : f + 's'}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Shared Access Banner */}
         <div className="mb-lg p-md rounded-xl bg-secondary-container/30 border border-secondary-container/50 flex items-center gap-sm">
           <span className="material-symbols-outlined text-secondary shrink-0">lock_open</span>
@@ -163,11 +265,23 @@ export default function SharedView() {
           <div className="flex flex-col items-center justify-center py-24 text-center">
             <span className="material-symbols-outlined text-[64px] text-outline-variant mb-4">group</span>
             <h3 className="font-headline text-headline-sm text-on-surface mb-2">No shared documents</h3>
-            <p className="font-body text-body-md text-on-surface-variant">
+            <p className="font-body text-body-md text-on-surface-variant mb-6">
               {searchQuery
                 ? `No results for "${searchQuery}"`
-                : 'Share a document from your Archive to get started.'}
+                : withMeFilter && !byMeFilter
+                  ? 'No documents have been shared with you yet.'
+                  : byMeFilter && !withMeFilter
+                    ? 'You have not shared any documents yet.'
+                    : 'No documents match the selected filters.'}
             </p>
+            {hasActiveFilters && (
+              <button
+                onClick={clearFilters}
+                className="px-4 py-2 rounded-lg bg-primary text-on-primary font-body text-label-md hover:bg-primary-container transition-colors"
+              >
+                Clear filters
+              </button>
+            )}
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-lg">
@@ -177,7 +291,7 @@ export default function SharedView() {
                 document={doc}
                 isShared={true}
                 onDownload={handleDownload}
-                onManageAccess={handleManageAccess}
+                onManageAccess={doc.owner === CURRENT_USER ? handleManageAccess : undefined}
                 onMoveToPrivate={handleMoveToPrivate}
               />
             ))}

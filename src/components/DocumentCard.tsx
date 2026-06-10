@@ -99,13 +99,15 @@ export default function DocumentCard({
                   <span className="material-symbols-outlined text-[18px] text-outline">download</span>
                   Download
                 </button>
-                <button
-                  onClick={() => { setMenuOpen(false); onManageAccess?.(document.id); }}
-                  className="w-full flex items-center gap-sm px-md py-sm hover:bg-surface-container transition-colors text-on-surface font-body text-label-md text-left"
-                >
-                  <span className="material-symbols-outlined text-[18px] text-outline">person_add</span>
-                  Manage Access
-                </button>
+                {onManageAccess && (
+                  <button
+                    onClick={() => { setMenuOpen(false); onManageAccess(document.id); }}
+                    className="w-full flex items-center gap-sm px-md py-sm hover:bg-surface-container transition-colors text-on-surface font-body text-label-md text-left"
+                  >
+                    <span className="material-symbols-outlined text-[18px] text-outline">person_add</span>
+                    Manage Access
+                  </button>
+                )}
                 {isShared && (
                   <button
                     onClick={() => { setMenuOpen(false); onMoveToPrivate?.(document.id); }}
