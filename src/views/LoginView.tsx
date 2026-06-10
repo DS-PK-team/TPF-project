@@ -1,19 +1,32 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { login } from '../services/authService';
 
 export default function LoginView() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    navigate('/archive');
+    setError('');
+    setIsLoading(true);
+    try {
+      await login(email, password);
+      navigate('/archive');
+    } catch {
+      setError('Invalid credentials. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="bg-background min-h-screen flex items-center justify-center p-md font-body-md text-body-md text-on-surface antialiased">
+    <div className="bg-background min-h-screen flex items-center justify-center p-md font-body text-body-md text-on-surface antialiased">
       <main className="w-full max-w-[420px] bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] border border-outline-variant/40 p-xl flex flex-col gap-xl">
+
         {/* Header / Brand */}
         <header className="flex flex-col items-center gap-sm">
           <div className="w-12 h-12 bg-primary-fixed rounded-xl flex items-center justify-center text-primary mb-xs">
@@ -41,9 +54,11 @@ export default function LoginView() {
                 placeholder="archivist@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-[10px] font-body text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors placeholder:text-outline"
+                disabled={isLoading}
+                className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-[10px] font-body text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors placeholder:text-outline disabled:opacity-60"
               />
             </div>
+
             {/* Password Field */}
             <div className="flex flex-col gap-xs">
               <div className="flex justify-between items-end">
@@ -62,19 +77,38 @@ export default function LoginView() {
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-[10px] font-body text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors placeholder:text-outline"
+                disabled={isLoading}
+                className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-[10px] font-body text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors placeholder:text-outline disabled:opacity-60"
               />
             </div>
           </div>
 
-          {/* Actions */}
+          {/* Error message */}
+          {error && (
+            <div className="flex items-center gap-sm p-sm rounded-lg bg-error-container text-on-error-container font-body text-label-md">
+              <span className="material-symbols-outlined text-[18px]">error</span>
+              {error}
+            </div>
+          )}
+
+          {/* Submit */}
           <div className="flex flex-col gap-md pt-sm">
             <button
               type="submit"
-              className="w-full bg-primary text-on-primary font-body text-label-md font-semibold py-[12px] px-md rounded-lg hover:bg-primary-container transition-colors flex items-center justify-center gap-sm"
+              disabled={isLoading}
+              className="w-full bg-primary text-on-primary font-body text-label-md font-semibold py-[12px] px-md rounded-lg hover:bg-primary-container transition-colors flex items-center justify-center gap-sm disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Sign In
-              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>arrow_forward</span>
+              {isLoading ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-on-primary border-t-transparent rounded-full animate-spin" />
+                  Signing in…
+                </>
+              ) : (
+                <>
+                  Sign In
+                  <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>arrow_forward</span>
+                </>
+              )}
             </button>
           </div>
         </form>
@@ -82,8 +116,8 @@ export default function LoginView() {
         {/* Footer Switch */}
         <footer className="text-center pt-md border-t border-surface-variant">
           <p className="font-body text-body-md text-on-surface-variant">
-            New to the vault?
-            <a href="#" className="font-body text-label-md text-primary hover:text-primary-container transition-colors ml-xs">
+            New to the vault?{' '}
+            <a href="#" className="font-body text-label-md text-primary hover:text-primary-container transition-colors">
               Create an account
             </a>
           </p>
