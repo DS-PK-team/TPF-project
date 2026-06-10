@@ -1,8 +1,13 @@
+import { useState, useRef, useEffect } from 'react';
 import type { Document, DocumentType } from '../types';
 
-interface DocumentCardProps {
+export interface DocumentCardProps {
   document: Document;
+  isShared?: boolean;
   onClick?: (id: string) => void;
+  onDownload?: (id: string) => void;
+  onManageAccess?: (id: string) => void;
+  onMoveToPrivate?: (id: string) => void;
 }
 
 const TYPE_BADGE: Record<DocumentType, { label: string; className: string }> = {
@@ -16,19 +21,44 @@ const TYPE_BADGE: Record<DocumentType, { label: string; className: string }> = {
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
+    day: '2-digit', month: 'short', year: 'numeric',
   });
 }
 
-export default function DocumentCard({ document, onClick }: DocumentCardProps) {
+export default function DocumentCard({
+  document,
+  isShared = false,
+  onClick,
+  onDownload,
+  onManageAccess,
+  onMoveToPrivate,
+}: DocumentCardProps) {
   const badge = TYPE_BADGE[document.documentType];
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener('mousedown', handler);
+    return () => window.removeEventListener('mousedown', handler);
+  }, [menuOpen]);
+
+  const handleCardClick = () => {
+    if (menuOpen) return;
+    onClick?.(document.id);
+    onDownload?.(document.id); // clicking card triggers download notification
+  };
 
   return (
     <article
-      onClick={() => onClick?.(document.id)}
-      className="bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] border border-outline-variant/30 overflow-hidden flex flex-col group hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-all duration-200 cursor-pointer"
+      onClick={handleCardClick}
+      className="bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] border border-outline-variant/30 overflow-hidden flex flex-col group hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-all duration-200 cursor-pointer relative"
     >
       {/* Thumbnail */}
       <div className="aspect-[4/3] bg-surface-container-low relative overflow-hidden border-b border-outline-variant/20">
@@ -50,13 +80,45 @@ export default function DocumentCard({ document, onClick }: DocumentCardProps) {
           >
             {document.title}
           </h3>
-          <button
-            aria-label="Document options"
-            onClick={(e) => e.stopPropagation()}
-            className="text-outline hover:text-primary transition-colors shrink-0"
-          >
-            <span className="material-symbols-outlined text-[18px]">more_vert</span>
-          </button>
+
+          {/* ⋮ Menu button + dropdown */}
+          <div ref={menuRef} className="relative shrink-0" onClick={e => e.stopPropagation()}>
+            <button
+              aria-label="Document options"
+              onClick={() => setMenuOpen(v => !v)}
+              className={`text-outline hover:text-primary transition-colors rounded-full p-0.5 ${menuOpen ? 'text-primary bg-primary-fixed/30' : ''}`}
+            >
+              <span className="material-symbols-outlined text-[18px]">more_vert</span>
+            </button>
+
+            {menuOpen && (
+              <div className="absolute right-0 top-7 z-50 bg-surface-container-lowest border border-surface-variant rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.1)] w-48 py-1 overflow-hidden">
+                <button
+                  onClick={() => { setMenuOpen(false); onDownload?.(document.id); }}
+                  className="w-full flex items-center gap-sm px-md py-sm hover:bg-surface-container transition-colors text-on-surface font-body text-label-md text-left"
+                >
+                  <span className="material-symbols-outlined text-[18px] text-outline">download</span>
+                  Download
+                </button>
+                <button
+                  onClick={() => { setMenuOpen(false); onManageAccess?.(document.id); }}
+                  className="w-full flex items-center gap-sm px-md py-sm hover:bg-surface-container transition-colors text-on-surface font-body text-label-md text-left"
+                >
+                  <span className="material-symbols-outlined text-[18px] text-outline">manage_accounts</span>
+                  Manage Access
+                </button>
+                {isShared && (
+                  <button
+                    onClick={() => { setMenuOpen(false); onMoveToPrivate?.(document.id); }}
+                    className="w-full flex items-center gap-sm px-md py-sm hover:bg-surface-container transition-colors text-primary font-body text-label-md text-left border-t border-surface-container-high mt-1"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">lock</span>
+                    Move to Private
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="font-body text-label-sm text-on-surface-variant flex items-center justify-between mt-auto pt-2">
@@ -65,15 +127,19 @@ export default function DocumentCard({ document, onClick }: DocumentCardProps) {
         </div>
 
         <div className="mt-1 flex flex-wrap gap-1">
-          <span
-            className={`inline-flex items-center px-2 py-0.5 rounded-full font-body text-label-sm w-fit border ${badge.className}`}
-          >
+          <span className={`inline-flex items-center px-2 py-0.5 rounded-full font-body text-label-sm w-fit border ${badge.className}`}>
             {badge.label}
           </span>
-          {document.isPrivate && (
+          {document.isPrivate && !isShared && (
             <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full font-body text-label-sm bg-surface-container text-outline border border-outline-variant/30">
               <span className="material-symbols-outlined text-[12px]">lock</span>
               Private
+            </span>
+          )}
+          {isShared && (
+            <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full font-body text-label-sm bg-secondary-container/40 text-secondary border border-secondary-container/30">
+              <span className="material-symbols-outlined text-[12px]">group</span>
+              Shared
             </span>
           )}
         </div>

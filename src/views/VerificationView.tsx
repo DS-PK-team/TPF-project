@@ -181,20 +181,20 @@ export default function VerificationView() {
 
         {/* Fixed Action Bar */}
         <div className="fixed bottom-8 flex items-center gap-4 z-50 w-full justify-center left-0 right-0 px-6">
-          <div className="backdrop-blur-md rounded-xl shadow-xl p-1.5 bg-error hover:bg-on-error-container transition-colors cursor-pointer">
-            <button
-              onClick={() => setItems(QUEUE_ITEMS.filter(i => i.status === 'ready'))}
-              className="font-body text-label-md px-4 py-2 whitespace-nowrap font-bold text-white"
-            >
-              Remove all errors and start over
-            </button>
-          </div>
           <div className="bg-white/90 backdrop-blur-md border border-surface-variant p-1.5 rounded-xl shadow-xl hover:bg-white transition-colors cursor-pointer">
             <button
               onClick={() => navigate('/upload')}
               className="font-body text-label-md text-on-surface-variant px-6 py-2 whitespace-nowrap font-semibold"
             >
               Cancel
+            </button>
+          </div>
+          <div className="backdrop-blur-md rounded-xl shadow-xl p-1.5 bg-error hover:bg-on-error-container transition-colors cursor-pointer">
+            <button
+              onClick={() => setItems(QUEUE_ITEMS.filter(i => i.status === 'ready'))}
+              className="font-body text-label-md px-4 py-2 whitespace-nowrap font-bold text-white"
+            >
+              Remove all files with errors
             </button>
           </div>
           <div className="bg-primary p-1.5 rounded-xl shadow-xl hover:bg-primary-container transition-colors cursor-pointer">

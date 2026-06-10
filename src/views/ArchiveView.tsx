@@ -1,11 +1,42 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DocumentCard from '../components/DocumentCard';
+import Toast from '../components/Toast';
+import ManageAccessModal from '../components/ManageAccessModal';
 import { getPersonalDocuments } from '../services/documentsService';
 import type { Document, DocumentType } from '../types';
 
 type Filter = 'All' | DocumentType;
+type DateFilter = 'any' | 'today' | 'week' | 'month' | 'year';
+
 const FILTERS: Filter[] = ['All', 'Invoice', 'Contract', 'Receipt', 'Blueprint', 'Report'];
+const DATE_OPTIONS: { value: DateFilter; label: string }[] = [
+  { value: 'any',   label: 'Any Date' },
+  { value: 'today', label: 'Today' },
+  { value: 'week',  label: 'This Week' },
+  { value: 'month', label: 'This Month' },
+  { value: 'year',  label: 'This Year' },
+];
+
+function isWithinRange(iso: string, range: DateFilter): boolean {
+  if (range === 'any') return true;
+  const d = new Date(iso);
+  const now = new Date();
+  if (range === 'today') {
+    return d.toDateString() === now.toDateString();
+  }
+  if (range === 'week') {
+    const weekAgo = new Date(now); weekAgo.setDate(now.getDate() - 7);
+    return d >= weekAgo;
+  }
+  if (range === 'month') {
+    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  }
+  if (range === 'year') {
+    return d.getFullYear() === now.getFullYear();
+  }
+  return true;
+}
 
 function SkeletonCard() {
   return (
@@ -25,23 +56,49 @@ export default function ArchiveView() {
   const [documents, setDocuments] = useState<Document[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState<Filter>('All');
+  const [dateFilter, setDateFilter] = useState<DateFilter>('any');
+  const [dateDropdownOpen, setDateDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [toast, setToast] = useState<{ message: string; icon: string } | null>(null);
+  const [manageDoc, setManageDoc] = useState<Document | null>(null);
 
   useEffect(() => {
     setIsLoading(true);
-    getPersonalDocuments().then((docs) => {
-      setDocuments(docs);
-      setIsLoading(false);
-    });
+    getPersonalDocuments().then((docs) => { setDocuments(docs); setIsLoading(false); });
   }, []);
 
   const filtered = useMemo(() => {
     return documents.filter((doc) => {
-      const matchesType = activeFilter === 'All' || doc.documentType === activeFilter;
+      const matchesType   = activeFilter === 'All' || doc.documentType === activeFilter;
       const matchesSearch = doc.title.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesType && matchesSearch;
+      const matchesDate   = isWithinRange(doc.uploadDate, dateFilter);
+      return matchesType && matchesSearch && matchesDate;
     });
-  }, [documents, activeFilter, searchQuery]);
+  }, [documents, activeFilter, searchQuery, dateFilter]);
+
+  const showToast = useCallback((message: string, icon = 'download') => {
+    setToast({ message, icon });
+  }, []);
+
+  const handleDownload = useCallback((_id: string) => {
+    showToast('Download started…', 'download');
+  }, [showToast]);
+
+  const handleManageAccess = useCallback((id: string) => {
+    const doc = documents.find(d => d.id === id) ?? null;
+    setManageDoc(doc);
+  }, [documents]);
+
+  const handleConfirmShare = useCallback((_userIds: string[]) => {
+    if (!manageDoc) return;
+    setDocuments(prev => prev.map(d =>
+      d.id === manageDoc.id ? { ...d, isPrivate: false } : d
+    ));
+    showToast('Document shared successfully', 'share');
+    setManageDoc(null);
+  }, [manageDoc, showToast]);
+
+  const dateLabel = DATE_OPTIONS.find(o => o.value === dateFilter)?.label ?? 'Any Date';
 
   return (
     <div className="flex-1 overflow-y-auto p-xl">
@@ -70,25 +127,40 @@ export default function ArchiveView() {
                 {f === 'All' ? 'All Files' : f + 's'}
               </button>
             ))}
-            <button className="ml-2 px-3 py-1.5 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface flex items-center gap-2 font-body text-label-sm hover:bg-surface-container-low transition-colors">
-              <span className="material-symbols-outlined text-[16px]">calendar_month</span>
-              Any Date
-              <span className="material-symbols-outlined text-[16px]">arrow_drop_down</span>
-            </button>
-          </div>
-        </div>
 
-        {/* Search (mobile — top nav already has search on desktop) */}
-        <div className="mb-lg block md:hidden">
-          <div className="relative">
-            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
-            <input
-              type="text"
-              placeholder="Search archive..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-surface border border-outline-variant rounded-lg py-2 pl-10 pr-4 font-body text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
-            />
+            {/* Date Picker Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setDateDropdownOpen(v => !v)}
+                className={`ml-2 px-3 py-1.5 rounded-lg border font-body text-label-sm flex items-center gap-2 transition-colors ${
+                  dateFilter !== 'any'
+                    ? 'bg-primary text-on-primary border-primary shadow-sm'
+                    : 'bg-surface-container-lowest border-outline-variant text-on-surface hover:bg-surface-container-low'
+                }`}
+              >
+                <span className="material-symbols-outlined text-[16px]">calendar_month</span>
+                {dateLabel}
+                <span className="material-symbols-outlined text-[16px]">arrow_drop_down</span>
+              </button>
+              {dateDropdownOpen && (
+                <div className="absolute right-0 top-10 z-40 bg-surface-container-lowest border border-surface-variant rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.1)] w-44 py-1 overflow-hidden">
+                  {DATE_OPTIONS.map(opt => (
+                    <button
+                      key={opt.value}
+                      onClick={() => { setDateFilter(opt.value); setDateDropdownOpen(false); }}
+                      className={`w-full flex items-center gap-sm px-md py-sm hover:bg-surface-container transition-colors font-body text-label-md text-left ${
+                        dateFilter === opt.value ? 'text-primary font-semibold' : 'text-on-surface'
+                      }`}
+                    >
+                      {dateFilter === opt.value && (
+                        <span className="material-symbols-outlined text-[16px]">check</span>
+                      )}
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -102,10 +174,12 @@ export default function ArchiveView() {
             <span className="material-symbols-outlined text-[64px] text-outline-variant mb-4">folder_open</span>
             <h3 className="font-headline text-headline-sm text-on-surface mb-2">No documents found</h3>
             <p className="font-body text-body-md text-on-surface-variant mb-6">
-              {searchQuery ? `No results for "${searchQuery}"` : 'No documents match this filter.'}
+              {searchQuery
+                ? `No results for "${searchQuery}"`
+                : `No documents match the selected filter${dateFilter !== 'any' ? ` in "${dateLabel}"` : ''}.`}
             </p>
             <button
-              onClick={() => { setActiveFilter('All'); setSearchQuery(''); }}
+              onClick={() => { setActiveFilter('All'); setSearchQuery(''); setDateFilter('any'); }}
               className="px-4 py-2 rounded-lg bg-primary text-on-primary font-body text-label-md hover:bg-primary-container transition-colors"
             >
               Clear filters
@@ -117,7 +191,10 @@ export default function ArchiveView() {
               <DocumentCard
                 key={doc.id}
                 document={doc}
-                onClick={() => navigate(`/archive/${doc.id}`)}
+                isShared={false}
+                onClick={() => { navigate(`/archive/${doc.id}`); handleDownload(doc.id); }}
+                onDownload={handleDownload}
+                onManageAccess={handleManageAccess}
               />
             ))}
           </div>
@@ -140,6 +217,18 @@ export default function ArchiveView() {
           </div>
         )}
       </div>
+
+      {/* Toast */}
+      {toast && <Toast message={toast.message} icon={toast.icon} onClose={() => setToast(null)} />}
+
+      {/* Manage Access Modal */}
+      {manageDoc && (
+        <ManageAccessModal
+          documentTitle={manageDoc.title}
+          onConfirm={handleConfirmShare}
+          onCancel={() => setManageDoc(null)}
+        />
+      )}
     </div>
   );
 }
