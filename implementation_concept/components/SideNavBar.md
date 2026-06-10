@@ -2,23 +2,25 @@
 
 ## Zastosowanie
 
-Główna, pionowa nawigacja używana na desktopach. Oparta na układzie elastycznym, przyklejona zazwyczaj po lewej stronie do pełnej puli wysokości ekranu (`h-screen`).
+Pionowa nawigacja desktopowa (`w-64`, `h-screen`). Renderowana przez `AppShell` na wszystkich trasach z nav (nie na `/`, `/register`, `/success`).
 
-## Właściwości / Props
+## Props
 
-- `activeRoute` (string) - Informacja zwrotna o obecnym stanie routera (zaznacza jasnoniebieski background w Tailwind z ciemnoniebieską ikoną).
-- `onNewDocument` (function) - Funkcja wywoływana przy wciśnięciu przycisku "New Document" (wyzwala przepierowanie z routera na ścieżkę `/upload`).
+```ts
+interface SideNavBarProps {
+  onNewDocument?: () => void;
+  onOpenSettings?: () => void;
+}
+```
 
-## Klasy bazowe z HTML'a
+## Pozycje nawigacji
 
-(Będą konwertowane na `className`)
-`w-64 border-r border-slate-100 bg-white flex flex-col h-full...`
+1. **Brand:** Vault & Vellum / Secure Storage
+2. **CTA:** New Document → `/upload` (lub `onNewDocument` callback)
+3. **Linki:** Archive (`/archive`), Upload (`/upload`), Shared (`/shared`)
+   - Upload aktywny też na `/processing` i `/verification`
+4. **Footer:** status sync „All files synced”, Settings (otwiera modal w AppShell), Log Out → `/`
 
-## Pozycje w nawigacji
+## Klasy
 
-1.  Przycisk (CTA) - **New Document** (Niebieski przycisk akcji ze znakiem '+').
-2.  Zwykłe linki:
-    - **Archive** (`/archive`)
-    - **Upload** (`/upload`)
-    - **Shared** (`/shared`)
-3.  Dolna sekcja (settings, logout) oddzielona cienkim szarym znacznikiem z dodatkowym statusem _"All files synced"_ (wskaźnik świetlno-zielony).
+Tokeny design systemu: `bg-surface-container-lowest`, `border-outline-variant/30`, `bg-primary` dla CTA.

@@ -2,35 +2,39 @@
 
 ## Zastosowanie
 
-Dokument reprezentowany w postaci interaktywnej "karty" / "kafelki" w siatce układu Archiwum (`/archive` lub `/shared`). Powinien renderować miniaturę zdjęcia czy PDFa oraz prezentować podstawowe Metadane wygenerowane w fazie analizy.
+Interaktywna karta dokumentu w siatce `ArchiveView` (`/archive`) i `SharedView` (`/shared`).
 
-## Akcje
+## Akcje (menu ⋮)
 
-Karta powinna pozwalać na:
+| Akcja | Archive | Shared | Warunek |
+|---|---|---|---|
+| Download | ✓ | ✓ | zawsze |
+| Manage Access | ✓ | ✓ | Shared: tylko gdy `onManageAccess` przekazany (dok. „by me”) |
+| Move to Private | — | ✓ | `isShared={true}` |
+| Delete | ✓ | — | `onDelete` przekazany |
 
-- Podstawowy podgląd/wyświetlenie parametrów pliku (otwarcie po kliknięciu głównego pola),
-- Otwarcie okienka pobocznego Context Menu z poleceniami (Usunięcie, Przeniesienie, Zmiana tagów) dzięki okienkom po kliknięciu w dodatkowe wielokropki lub menu relatywne do boku obiektu.
+Kliknięcie karty (poza menu) wywołuje `onDownload`.
 
-## Przyjmowane Props
+## Props (zaimplementowane)
 
 ```ts
 interface DocumentCardProps {
-	id: string;
-	title: string;
-	thumbnailUrl: string; // Ścieżka do podglądu, pobierana z Mocks (warstwa OCR).
-	documentType: "PDF" | "JPG" | "PNG"; // Zależnie od typu – zróżnicowana etykieta / plakietka.
-	fileSize?: string;
-	tags?: string[];
-	owner?: {
-		name: string;
-		initials: string; // Dla widoku domowników na współdzielonym kafelku avatara.
-	};
-	uploadDate: string; // 'Oct 01, 2023'
+  document: Document;
+  isShared?: boolean;
+  onDownload?: (id: string) => void;
+  onManageAccess?: (id: string) => void;
+  onMoveToPrivate?: (id: string) => void;
+  onDelete?: (id: string) => void;
 }
 ```
 
-## Opis struktury Tailwind
+`Document` pochodzi z `src/types/index.ts` — pola: `id`, `title`, `thumbnailUrl`, `documentType`, `fileSize`, `tags`, `owner`, `uploadDate`, `isPrivate`.
 
-Górna połowa to przestrzeń absolutna / relatywna ze zdjęciem dopasowanym przez `object-cover`.
-Nałożona na miniatury dodatkowa sztywna informacja dotycząca rozszerzenia w prawym górnym rogu.
-Dolna warstwa tekstowa to miejsce na tytuł, miniaturkę właściciela ('owner') w zintegrowanym kółku i linię oddzielającą z informacją "Oct 01, 2023 • 14 Items" etc.
+## Badge typu dokumentu
+
+Invoice, Contract, Receipt, Blueprint, Report, Other — każdy z własnymi tokenami kolorów Tailwind.
+
+## Szablon HTML
+
+- `../../templates/archive.html` — karta w siatce
+- `../../templates/archive-context.html` — dropdown menu

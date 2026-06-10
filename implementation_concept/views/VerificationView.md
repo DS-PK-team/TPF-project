@@ -1,21 +1,40 @@
 # Widok: Weryfikacja Plików / Kolejka (Upload Queue & Edit Tags)
 
-## Trasa (Route): `/verification` lub `/upload-queue`
+## Trasa (Route): `/verification`
 
 ## Odpowiedzialność
 
-System "nie jest alfą i omegą" – nie podejmuje decyzji archiwizacyjnej automatycznie. Dokument, o którym AI (OCR) wyciągnęło informacje w poprzednim kroku `/processing`, przesyłany jest do ostatecznej edycji (edycja tagów, edycja wymuszonego folderu binarnego - np. "Financial Records").
+Bramka decyzji użytkownika po OCR. System proponuje 2–3 zestawy tagów/folderów — użytkownik zatwierdza. Dwa wewnętrzne tryby (`ViewMode`).
 
-## Składowe ekranu (UX)
+## Tryb `queue` (domyślny)
 
-1. Prawa lub centralna kolumna z dokładną kartą rozbitą po analizie wgranego obiektu.
-2. Etykiety "Suggested by AI" obok dropdownów.
-3. System wymusza potwierdzenie zapisu – do czasu naduszenia przycisku "Zatwierdź", zdigitalizowany plik widnieje w stanie zapamiętanym wyłącznie jako roboczy plik lokalnej maszyny Frontendowej.
-4. Oznaczenia błędów, jeśli wgrany został błędny lub nieobsługiwany format np. `.exe` (przykład błędnego dokumentu z oryginalnego `index.html` z Upload Queue).
+- Lista 4 mockowych pozycji: 2 błędy (format `.exe`, jakość JPG) + 2 gotowe
+- Per item: Edit Tags, Remove; dla błędu jakości: **Retry Upload** (mock 1.2s → status `ready`)
+- Dolny pasek akcji:
+  - Cancel → `/upload`
+  - Remove all files with errors
+  - Approve N valid files → `/success`
+
+## Tryb `edit-tags`
+
+Otwierany z konkretnego elementu kolejki (`editingItemId`):
+
+- **Back to Upload Queue** → powrót do `queue`
+- Podgląd dokumentu powiązany z wybranym itemem (nazwa, ikona, tagi)
+- 3 radio zestawy tagów (pierwszy z badge „Suggested by AI”)
+- Custom tags: input + `add_circle` / Enter
+- Zoom in/out na podglądzie (75–150%)
+- **Confirm & Save** — zapis tagów do elementu kolejki
 
 ## Wyjście Routera
 
-Kluczowy przycisk wywołuje mock `services/api/saveFinalDocument()` a następnie wyjawia na pół sekundy ekran `/success` lub wypuszczając od razu na powrót do `/archive`.
+```
+Approve → /success
+Cancel  → /upload
+```
 
-## Szablon HTML
-Ten widok został wyekstrahowany i znajduje się w pliku: ../../templates/upload-queue.html oraz ../../templates/edit-tags.html (stan edycji metadanych). Po weryfikacji kierujemy na ekran sukcesu zawarty w ../../templates/success.html.
+## Szablony HTML
+
+- `../../templates/upload-queue.html` — tryb queue
+- `../../templates/edit-tags.html` — tryb edit-tags
+- `../../templates/success.html` — ekran po zatwierdzeniu (`SuccessView`)

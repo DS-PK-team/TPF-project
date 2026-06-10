@@ -43,11 +43,13 @@ d:\PolitechnikaKrakowska\TPF\TPF tmp\
 │   │   └── UploadZone.md
 │   └── views/                         ← Opisy widoków, logika, routing
 │       ├── LoginView.md
-│       ├── RegisterView.md            ← (opcjonalnie; widok zaimplementowany w src/)
+│       ├── RegisterView.md
 │       ├── ArchiveView.md
+│       ├── SharedView.md
 │       ├── UploadView.md
 │       ├── ProcessingView.md
-│       └── VerificationView.md
+│       ├── VerificationView.md
+│       └── SuccessView.md
 ├── templates/                         ← Gotowe szablony HTML (źródło prawdy dla UI)
 │   ├── login.html
 │   ├── archive.html

@@ -1,42 +1,93 @@
 # Architektura Projektu (React + Mocks)
 
-Projekt opiera się na **React, TypeScript oraz Tailwind CSS**.
-Głównym założeniem jest odizolowanie logiki UI od (symulowanego) źródła danych tak, aby w przyszłości łatwo było podmienić paczki `mocks` na realne zapytania API.
+Projekt opiera się na **React 18, TypeScript oraz Tailwind CSS**.
+Głównym założeniem jest odizolowanie logiki UI od (symulowanego) źródła danych tak, aby w przyszłości łatwo było podmienić mocki na realne zapytania API.
 
 ## Ogólna Struktura Plików
 
 ```text
 src/
- ├── assets/                 # Zasoby graficzne, ikony
- ├── components/             # Reużywalne, współdzielone komponenty (UI, layout)
- ├── views/                  # Główne szablony stron (odpowiadające routingowi)
- ├── routes/                 # Definicja tras (react-router-dom)
- ├── types/                  # Interfejsy i typy TypeScript (np. Modele DTO)
- ├── services/               # Serwisy odpowiadające za logikę biznesową i dane
- │   └── api/                # Warstwa zapytań udająca klienta HTTP
- └── mocks/                  # Zbudowana struktura fałszywych responsów
-     └── routes/             # Podfoldery odpowiadające endpointom np. /documents, /auth
+ ├── components/             # Reużywalne komponenty UI i layout
+ │   ├── AppShell.tsx        # Layout + Settings modal + SearchProvider
+ │   ├── SideNavBar.tsx
+ │   ├── TopNavBar.tsx
+ │   ├── DocumentCard.tsx
+ │   ├── ManageAccessModal.tsx
+ │   └── Toast.tsx
+ ├── context/
+ │   └── SearchContext.tsx   # Wspólny stan wyszukiwarki TopNav
+ ├── views/                  # Widoki odpowiadające routingowi
+ │   ├── LoginView.tsx
+ │   ├── RegisterView.tsx
+ │   ├── ArchiveView.tsx
+ │   ├── SharedView.tsx
+ │   ├── UploadView.tsx
+ │   ├── ProcessingView.tsx
+ │   ├── VerificationView.tsx
+ │   └── SuccessView.tsx
+ ├── routes/
+ │   └── AppRouter.tsx
+ ├── types/
+ │   └── index.ts
+ ├── services/
+ │   ├── authService.ts      # login(), register() — setTimeout 800ms
+ │   └── documentsService.ts # getPersonalDocuments(), getSharedDocuments()
+ └── mocks/
+     └── documents.ts        # PERSONAL_DOCUMENTS, SHARED_DOCUMENTS
 ```
+
+> **Uwaga:** `UploadZone` nie jest osobnym komponentem — logika drag & drop jest zaimplementowana inline w `UploadView.tsx`.
 
 ## Przepływ Informacji (Data Flow)
 
-Gdy użytkownik wejdzie w interakcję (np. kliknie przycisk "Upload", logowanie):
+1. **Widok** wywołuje funkcję z `services/` i ustawia stan ładowania.
+2. **Serwis** zwraca dane z `mocks/` opóźnione `setTimeout()` (600–800 ms).
+3. **Widok** re-renderuje UI na podstawie odpowiedzi.
 
-1.  **Widok (View / Component)** wysyła wywołanie akcji i aktualizuje stan ładowania.
-2.  Odnosimy się do funkcji z **`services`** (np. `UploadService.processFiles()`).
-3.  Serwis biznesowy deleguje zadanie głębiej do **`services/api`** (np. `api.post('/documents')`).
-4.  W warstwie API umieszczona jest wstrzyknięta atrapa – odpowiedź zostaje załadowana ze ścieżki **`mocks/routes/...`**. Znajdą się w nich interfejsy zwracające JSON i sztucznie ubrane w polecenie asynchroniczne (np. `setTimeout()` symulujące kilkusekundowe OCR'y lub logowanie HTTP).
-5.  Wynik asynchroniczny wraca do interfejsu (View), który re-renderuje strukturę wyświetlając odpowiednie miniatury.
+Wyszukiwarka w `TopNavBar` działa przez `SearchContext` — stan `searchQuery` jest podnoszony w `AppShell` i konsumowany w `ArchiveView` / `SharedView`.
 
-## Nawigacja - react-router-dom
+## Nawigacja — react-router-dom
 
-Przejścia pomiędzy wyekstrahowanymi widokami obsługiwać będzie dedykowany kontext react routera:
+Wszystkie trasy zagnieżdżone w `AppShell` (layout decyduje o widoczności nav):
 
-- `/` -> Panel logowania
-- `/archive` -> Siatka osobistego archiwum
-- `/shared` -> Osobny widok dedykowany "wspólnym strefom"
-- `/upload` -> Ręczny transfer plików + QR upload
-- `/upload/processing` -> Animowany widok przejścia symulujący wyliczanie przez sztuczną inteligencję (OCR)
-- `/upload/verify` -> Propozycje folderów i edycja kategorii do rąk użytkownika
+| Trasa | Widok | Shell |
+|---|---|---|
+| `/` | LoginView | brak nav |
+| `/register` | RegisterView | brak nav |
+| `/archive` | ArchiveView | SideNav + TopNav |
+| `/shared` | SharedView | SideNav + TopNav |
+| `/upload` | UploadView | SideNav + TopNav |
+| `/processing` | ProcessingView | SideNav only (brak TopNav) |
+| `/verification` | VerificationView | SideNav + TopNav |
+| `/success` | SuccessView | brak nav |
+| `*` | redirect → `/` | — |
 
-Struktura zaprojektowana idealnie pod przejście pomiędzy statycznymi szablonami HTML a frameworkiem.
+## User Flow (zaimplementowany)
+
+```
+Login ──→ /archive          Register ──→ /archive
+  ↑                              │
+  └──── "Create an account" ─────┘
+
+/archive ──→ /upload (New Document)
+/upload ──→ /processing (auto po zakończeniu uploadu)
+/processing ──→ /verification (auto po 4.5s, state: { mode: 'queue' })
+/verification ──→ /success (Approve) lub /upload (Cancel)
+/success ──→ /archive (auto 8s lub przycisk) lub /upload
+```
+
+## Mapowanie szablonów HTML
+
+| Szablon | Faktyczna treść | Widok React |
+|---|---|---|
+| `login.html` | Login | LoginView |
+| `archive.html` | Archiwum | ArchiveView |
+| `archive-context.html` | Menu kontekstowe karty | DocumentCard (dropdown) |
+| `shared.html` | **Upload** (nie Shared!) | UploadView |
+| `upload-documents.html` | **Settings modal** | AppShell |
+| `upload-progress.html` | Overlay postępu uploadu | UploadView (stan) |
+| `upload-queue.html` | Kolejka weryfikacji | VerificationView (queue) |
+| `edit-tags.html` | Edycja tagów/folderu | VerificationView (edit-tags) |
+| `processing.html` | Animacja OCR | ProcessingView |
+| `success.html` | Ekran sukcesu | SuccessView |
+| `design-system.html` | **Shared Documents** | SharedView |

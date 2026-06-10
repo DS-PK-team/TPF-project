@@ -4,17 +4,36 @@
 
 ## Odpowiedzialność
 
-Ten zestaw kafelków pełni zaawansowaną interaktywność i jest głównym elementem wejściowym dla każdego digitalizowanego pliku w systemie. Aplikacja udostępnia tutaj dwie popularne ścieżki załadunku:
+Główny punkt wejścia dla nowych dokumentów. Layout dwukolumnowy (8/4) z drag & drop i sekcją mobilną.
 
-### Elementy / Podział
+## Elementy / Podział
 
-1.  **Dramatycznie wyrysowana strefa z "Drag & Drop":** Skrzynka o zaznaczonej granicy czekająca na pliki (reagująca np. w React state hover).
-2.  **QR Skaner Area:** Odseparowany kafel obok z instrukcją mobilną i kodem QR, co w perspektywie architektonicznej generowało by wejście via Socket - u nas na frontendzie stanowić może wyłącznie placeholder ubezpieczający makietę do symulacji tej ścieżki w widoku demonstracyjnym.
-3.  Pasek boczny "Upload Rules": zasady co do limitu per image.
+### Lewa kolumna (8/12) — Dropzone
 
-### Kontynuacja trasy Flow
+- Drag & drop z highlightem (`isDragging`)
+- Ukryty `<input type="file" multiple>`
+- Przycisk **Select Files**
+- Pill z dozwolonymi formatami
 
-Po udanej "weryfikacji" wrzucenia pliku drag & drop (na zasadzie wyselekcjonowania tablicy File w Reakcie z mockowanymi rozszerzeniami), przycisk "Proceed" wykonuje push ścieżki na router do sekcji **`/processing`**.
+### Prawa kolumna (4/12)
 
-## Szablon HTML
-Ten widok został wyekstrahowany i znajduje się w pliku: ../../templates/upload-documents.html oraz stanu uploadu: ../../templates/upload-progress.html.
+1. **Upload via Mobile** — karta QR + badge „End-to-end encrypted”
+2. **Upload Guidelines** — limit 25 MB, auto-organizacja dat, notatka o PDF
+
+### Modal postępu uploadu
+
+- Overlay z globalnym paskiem postępu i listą plików
+- Po osiągnięciu 100% → auto `navigate('/processing')` (600 ms opóźnienia)
+
+## Kontynuacja Flow
+
+```
+/upload → (upload complete) → /processing
+```
+
+## Szablony HTML
+
+- `../../templates/shared.html` — layout 2-kolumnowy + QR + guidelines
+- `../../templates/upload-progress.html` — overlay postępu uploadu
+
+> **Uwaga:** `upload-documents.html` to modal Settings w AppShell, nie widok Upload.

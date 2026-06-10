@@ -1,25 +1,28 @@
-# Widok: Ekran Przetwarzania (Processing / OCR Engine)
+# Widok: Ekran Przetwarzania (Processing / OCR)
 
 ## Trasa (Route): `/processing`
 
 ## Odpowiedzialność
 
-Makieta animacji dla analizującego "wąskiego gardła". Użytkownik widzi wizualną reprezentację odczytującego się przez OCR dokumentu. Ze względów informacyjnych dostarcza ona paski postępu ("Analizowanie tekstu", "Klasyfikacja", "Generowanie miniatur", etc).
+Animacja analizy OCR po uploadzie. Brak TopNavBar (focus na animacji). SideNavBar widoczny.
 
-## Logika w FE Mocks
+## Elementy UI
 
-Ten widok opiera się na komponencie React bazującym z dużej mierze na timerach asynchronicznych:
+- **Lewy panel:** skeleton dokumentu + animacja scan-line (`@keyframes scan`)
+- **Prawy panel:** status „Analyzing document…”, checklist 3 kroków (auto-advance)
+- **Cancel processing** → `/upload`
+
+## Logika w FE
 
 ```ts
 useEffect(() => {
-	// udajemy opóźnienie serwera 3 - 5 sekund
-	const timeout = setTimeout(() => {
-		navigate("/verification"); // Przełącz na akceptację przez human-touch.
-	}, 4500);
-}, []);
+  const timeout = setTimeout(() => {
+    navigate('/verification', { state: { mode: 'queue' } });
+  }, 4500);
+  return () => clearTimeout(timeout);
+}, [navigate]);
 ```
 
-Nie musimy tutaj odwoływać się do bazy API, jest to widok strikte przemyślany pod User Experience zaprezentowany w ankietach (gdzie narzekano na zamykanie użytkownika w niewiadomym stanie przetwarzania "pudełkowanego").
-
 ## Szablon HTML
-Ten widok został wyekstrahowany i znajduje się w pliku: ../../templates/processing.html.
+
+`../../templates/processing.html`

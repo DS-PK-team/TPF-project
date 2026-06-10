@@ -405,28 +405,18 @@ export default AppRouter;
 
 ```tsx
 // src/components/AppShell.tsx
-import { Outlet } from 'react-router-dom';
-import SideNavBar from './SideNavBar';
-import TopNavBar from './TopNavBar';
+// SearchProvider opakowuje AppShellInner
 
-const AppShell = () => (
-  // Układ z SoT: h-screen, overflow-hidden, flex
-  <div className="bg-background text-on-surface font-body-lg text-body-lg flex h-screen overflow-hidden">
-    <SideNavBar />
-    <main className="flex-1 flex flex-col h-screen overflow-hidden bg-background">
-      <TopNavBar />
-      {/* Scrollowalny obszar treści */}
-      <div className="flex-1 overflow-y-auto p-xl">
-        <div className="max-w-container-max mx-auto w-full">
-          <Outlet />  {/* tutaj renderuje się aktywny widok */}
-        </div>
-      </div>
-    </main>
-  </div>
-);
-
-export default AppShell;
+// Trasy bez nav: /, /register, /success → sam <Outlet />
+// Trasy z nav: SideNavBar + TopNavBar (TopNav ukryty na /processing)
+// Settings modal: account, change password, sync, logout
+// TopNavBar dostaje searchQuery + setSearchQuery z SearchContext
 ```
+
+**Shell Visibility Rule:**
+- `LoginView`, `RegisterView`, `SuccessView` → brak nav
+- `ProcessingView` → SideNav only
+- Pozostałe → pełny shell
 
 ---
 
@@ -445,7 +435,7 @@ const ProcessingView = () => {
   useEffect(() => {
     // 4500ms — ustalony w specyfikacji projektu, NIE ZMIENIAĆ
     const timer = setTimeout(() => {
-      navigate('/verification');
+      navigate('/verification', { state: { mode: 'queue' } });
     }, 4500);
 
     // ZAWSZE czyść timer przy unmount
@@ -462,51 +452,13 @@ const ProcessingView = () => {
 
 ---
 
-## 9. UploadZone — Drag & Drop Wzorzec
+## 9. UploadView — Drag & Drop Wzorzec
 
-```tsx
-// src/components/UploadZone.tsx
-import { useState, DragEvent } from 'react';
+Logika drag & drop jest w `src/views/UploadView.tsx` (nie w osobnym `UploadZone.tsx`).
 
-interface UploadZoneProps {
-  onFilesDropped: (files: File[]) => void;
-}
+Layout 2-kolumnowy wg `templates/shared.html`. Po `startUpload()` → modal postępu → `/processing`.
 
-const UploadZone = ({ onFilesDropped }: UploadZoneProps) => {
-  const [isDragOver, setIsDragOver] = useState(false);
-
-  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setIsDragOver(true);
-  };
-
-  const handleDragLeave = () => setIsDragOver(false);
-
-  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setIsDragOver(false);
-    const files = Array.from(e.dataTransfer.files);
-    onFilesDropped(files);
-  };
-
-  return (
-    <div
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
-      className={`
-        border-2 border-dashed rounded-xl transition-colors
-        ${isDragOver 
-          ? 'border-primary bg-primary-fixed/20' 
-          : 'border-outline-variant bg-surface-container-low'
-        }
-      `}
-    >
-      {/* Treść z templates/upload-documents.html */}
-    </div>
-  );
-};
-```
+Dropdowny filtrów (np. w SharedView) renderuj poza kontenerami z `overflow-x-auto`, aby uniknąć przycinania.
 
 ---
 
@@ -547,4 +499,4 @@ Przed każdym commitem upewnij się:
 - [ ] Material Symbols nie używają `<i>` ani `<svg>` — tylko `<span className="material-symbols-outlined">`
 - [ ] Każdy `setTimeout` w mockach jest czyszczony przez `clearTimeout` w cleanup funkcji `useEffect`
 - [ ] Nie ma `console.log` poza plikami mock/debug
-- [ ] Routy w `<Link>` odpowiadają routingowi z `AppRouter.tsx`
+- [ ] Routy w `<Link>` odpowiadają routingowi z `AppRouter.tsx` (`/`, `/register`, `/archive`, `/shared`, `/upload`, `/processing`, `/verification`, `/success`)

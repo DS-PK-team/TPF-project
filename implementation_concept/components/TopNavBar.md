@@ -2,18 +2,40 @@
 
 ## Zastosowanie
 
-Górna horyzontalna płaszczyzna dokująca. Odpowiedzialna za elementy wyszukiwania, preferencji w profilu przypiętym w rogu okna lub wyświetlania notyfikacji. Posiada szklany flat efekt po którym nie scrolluje się layout tablic/katalogów poniżej.
+Górny pasek z wyszukiwarką, notyfikacjami, ustawieniami i profilem. Ukryty na `/processing`.
 
-## Budowa propsów w TSX/React
+## Props
 
 ```ts
 interface TopNavBarProps {
-	onSearchQueryChange?: (val: string) => void;
-	avatarUrl?: string; // Domyślna ścieżka do ikonografii użytkownika
+  searchQuery?: string;
+  onSearchQueryChange?: (val: string) => void;
+  avatarUrl?: string;
+  onOpenSettings?: () => void;
 }
 ```
 
-## Komponenty zależne
+## Integracja z SearchContext
 
-Z `TopNavBar` korzystają niemal wszystkie widoki archiwum (`/archive`, `/shared`, oraz niekiedy wykreowany `/upload` i `/verification`).
-Pozwala pominąć ucinający i zapychający w każdym dokumencie tagowy stóg HTML wywodzący się z sekcji `<header class="docked full-width top-0..." >`.
+`AppShell` opakowuje layout w `SearchProvider` i przekazuje:
+
+```tsx
+<TopNavBar
+  searchQuery={searchQuery}
+  onSearchQueryChange={setSearchQuery}
+  onOpenSettings={() => setIsSettingsOpen(true)}
+/>
+```
+
+Stan `searchQuery` jest konsumowany w `ArchiveView` i `SharedView` przez `useSearch()`. Czyszczony automatycznie przy opuszczeniu `/archive` i `/shared`.
+
+## Elementy
+
+- **Search** — kontrolowany input, placeholder PL
+- **Notifications** — dropdown z mock listą + badge unread + „Mark all as read”
+- **Settings** — otwiera modal w `AppShell`
+- **Profil** — Jan Kowalski / jan.kowalski@example.com + avatar
+
+## Widoki korzystające
+
+`/archive`, `/shared`, `/upload`, `/verification`

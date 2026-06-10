@@ -4,17 +4,32 @@
 
 ## Odpowiedzialność
 
-Centralna sekcja aplikacji webowej. Ekran przedstawiający zintegrowane repozytorium zapisanych plików (prywatnych w tym widoku, w domyślnym podziale na siatkę).
+Centralna sekcja aplikacji — repozytorium dokumentów prywatnych w układzie siatki.
 
 ## Budowa Layoutu
 
-- **Menu boczne (SideNavBar):** Nawigacja.
-- **Menu górne (TopNavBar):** Posiada m.in. belkę systemową z pełnotekstowym wyszukiwaniem (indeks z zapamiętanego archiwum OCR) wyszukującym wśród mocków po ich polu danych. Widnieje tam również sekcja z dzwoneczkiem (notyfikacje - nieaktywne) i profil avatar.
-- **Lista/Siatka (Content):** Obszar mapujący kolekcję pobraną z `services/api/getPersonalDocuments()` używając komponentów wielorazowych `DocumentCard`.
+- **AppShell:** SideNavBar + TopNavBar
+- **TopNavBar search:** filtrowanie po tytule przez `SearchContext` (`useSearch()`)
+- **Content:** siatka `DocumentCard` z danymi z `getPersonalDocuments()`
 
-## Przeznaczenie Flow
+## Elementy interaktywne
 
-To główna tablica na którą użytkownik trafia zaraz po restarcie/odświeżeniu czy powrocie z dodawania. Pozwala w sposób filtrowany przeglądać dodane już faktury/umowy. Obsługuje przełączenie statusu na widok folderów/ścieżek lub układów siatki (Siatki kafelkowej).
+- **Filtry typu:** All Files, Invoices, Contracts, Receipts, Blueprints, Reports (chipy)
+- **Filtr daty:** dropdown Any Date / Today / This Week / This Month / This Year
+- **DocumentCard menu:** Download, Manage Access (`ManageAccessModal`), Delete
+- **New Document** → `/upload`
+- **Toast** przy download/share/delete
+- Stany: skeleton loading (6 kart), empty state z „Clear filters”
 
-## Szablon HTML
-Ten widok został wyekstrahowany i znajduje się w pliku: ../../templates/archive.html oraz wersji alternatywnej ../../templates/archive-context.html.
+## DocumentCard — akcje w archiwum
+
+| Akcja | Efekt |
+|---|---|
+| Download | Toast „Download started…” |
+| Manage Access | Modal → udostępnienie (zmiana `isPrivate: false`) |
+| Delete | Usunięcie z listy + toast |
+
+## Szablony HTML
+
+- `../../templates/archive.html` — widok główny
+- `../../templates/archive-context.html` — menu kontekstowe (Download, Manage access, Delete)

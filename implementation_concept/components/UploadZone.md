@@ -1,20 +1,36 @@
-# Reużywalny Komponent: UploadZone (Drag & Drop)
+# UploadZone (Drag & Drop)
 
-## Zastosowanie
+## Status implementacji
 
-Sekcja o dużych rozmiarach ramki przerywanej, nasłuchująca zdarzeń przeciągnięcia przez internautów swoich wektorów do systemu archiwizacji podpinając w HTML5 events (`onDragOver`, `onDragLeave`, `onDrop`).
+Logika drag & drop jest zaimplementowana **inline w `UploadView.tsx`**, nie jako osobny komponent `UploadZone.tsx`.
 
-## Działanie zorientowane na FrontEnd
-
-Ponieważ brak jest Backend'u do którego streamowalibyśmy zrzucone dane form-data, na froncie Reacta wystarczy zapamiętać nazwę upuszczonego pliku, jego rozmiar (wyciągnąć to przy pomocy obieków File z natywnego JS) i ustawić do globalnego state:
+## Zachowanie w UploadView
 
 ```ts
-const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+const [isDragging, setIsDragging] = useState(false);
 
-function handleDrop(event) {
-	const files = event.dataTransfer.files;
-	setUploadedFile(files[0] || null);
-}
+// onDragOver → highlight border-primary
+// onDrop / file input onChange → startUpload()
+// startUpload() → modal postępu → navigate('/processing')
 ```
 
-Używany w głównym widoku UploadView. Odrzucony "drag&drop" uaktywni przycisk `Wyślij w kolejkę (Proceed)`, rozpoczynając sekwencję User Flow opisaną w podaniu procesowym.
+## Layout
+
+Dwukolumnowy grid (8/4) zgodny z `templates/shared.html`:
+
+- Lewa: dropzone + Select Files
+- Prawa: QR placeholder + Upload Guidelines
+
+## Przyszła ekstrakcja (opcjonalna)
+
+Jeśli komponent zostanie wydzielony, sugerowany interfejs:
+
+```ts
+interface UploadZoneProps {
+  onUploadStart: () => void;
+  isDragging: boolean;
+  onDragOver: (e: DragEvent) => void;
+  onDragLeave: () => void;
+  onDrop: (e: DragEvent) => void;
+}
+```
