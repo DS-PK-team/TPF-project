@@ -25,7 +25,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Subscribe to Firebase auth state changes (login, logout, token refresh)
-    const unsubscribe = onAuthStateChanged(auth, (fbUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (fbUser: FirebaseUser | null) => {
       setUser(fbUser ? toAppUser(fbUser) : null);
       setLoading(false);
     });
