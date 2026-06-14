@@ -34,7 +34,9 @@ export async function register(name: string, email: string, password: string): P
   const credential: UserCredential = await createUserWithEmailAndPassword(auth, email, password);
   // Set the display name immediately after account creation
   await updateProfile(credential.user, { displayName: name });
-  return toAppUser(credential.user);
+  // Force a reload of the user's details to apply the profile updates
+  await credential.user.reload();
+  return toAppUser(auth.currentUser ?? credential.user);
 }
 
 /**
