@@ -12,7 +12,7 @@
 - [Ekrany aplikacji](#ekrany-aplikacji)
 - [Uruchomienie lokalne](#uruchomienie-lokalne)
 - [Konfiguracja Firebase](#konfiguracja-firebase)
-- [Konfiguracja Hotjar](#konfiguracja-hotjar)
+- [Konfiguracja Contentsquare / Hotjar](#konfiguracja-contentsquare--hotjar)
 - [Konfiguracja Google Analytics](#konfiguracja-google-analytics)
 - [Analityka — screenshoty](#analityka--screenshoty)
 - [Deploy](#deploy)
@@ -154,16 +154,15 @@ VITE_FIREBASE_APP_ID=1:123:web:abc
 
 ---
 
-## Konfiguracja Hotjar
+## Konfiguracja Contentsquare / Hotjar
 
-1. Zaloguj się na [hotjar.com](https://www.hotjar.com)
-2. **Sites & Organizations** → Add new site → wpisz URL aplikacji
-3. Skopiuj **Site ID** (liczba, np. `3847291`)
-4. W pliku `index.html` zamień `0000000` na swoje Site ID:
+Skrypt śledzący Contentsquare został zintegrowany bezpośrednio w sekcji `<head>` pliku `index.html`:
 
-```js
-h._hjSettings={hjid: 3847291, hjsv:6};
+```html
+<script src="https://t.contentsquare.net/uxa/bd2762d6f1bc6.js" defer></script>
 ```
+
+W przypadku chęci zmiany konta/identyfikatora w przyszłości, zaktualizuj powyższy skrypt w pliku `index.html`.
 
 ---
 
