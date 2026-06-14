@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { register } from '../services/authService';
+import { useAuth } from '../context/AuthContext';
 
 export default function RegisterView() {
   const navigate = useNavigate();
+  const { setUser } = useAuth();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +31,8 @@ export default function RegisterView() {
 
     setIsLoading(true);
     try {
-      await register(fullName, email, password);
+      const newUser = await register(fullName, email, password);
+      setUser(newUser);
       navigate('/archive');
     } catch (err: unknown) {
       const code = (err as { code?: string })?.code ?? '';
@@ -39,6 +42,8 @@ export default function RegisterView() {
         setError('Password is too weak. Use at least 6 characters.');
       } else if (code === 'auth/invalid-email') {
         setError('The email address is invalid.');
+      } else if (code === 'auth/operation-not-allowed') {
+        setError('Email/Password registration is not enabled in Firebase. Please enable it in the Firebase Console under Authentication -> Sign-in method.');
       } else {
         setError('Unable to create account. Please try again.');
       }
