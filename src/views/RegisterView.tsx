@@ -31,8 +31,17 @@ export default function RegisterView() {
     try {
       await register(fullName, email, password);
       navigate('/archive');
-    } catch {
-      setError('Unable to create account. Please try again.');
+    } catch (err: unknown) {
+      const code = (err as { code?: string })?.code ?? '';
+      if (code === 'auth/email-already-in-use') {
+        setError('An account with this email already exists. Try signing in.');
+      } else if (code === 'auth/weak-password') {
+        setError('Password is too weak. Use at least 6 characters.');
+      } else if (code === 'auth/invalid-email') {
+        setError('The email address is invalid.');
+      } else {
+        setError('Unable to create account. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }

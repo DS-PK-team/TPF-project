@@ -3,6 +3,8 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import SideNavBar from './SideNavBar';
 import TopNavBar from './TopNavBar';
 import { SearchProvider, useSearch } from '../context/SearchContext';
+import { useAuth } from '../context/AuthContext';
+import { logout } from '../services/authService';
 
 type SyncStatus = 'idle' | 'syncing' | 'synced';
 
@@ -11,6 +13,7 @@ function AppShellInner() {
   const navigate = useNavigate();
   const path = location.pathname;
   const { searchQuery, setSearchQuery } = useSearch();
+  const { user } = useAuth();
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
@@ -101,7 +104,10 @@ function AppShellInner() {
                     <span className="material-symbols-outlined text-[24px]">person</span>
                   </div>
                   <div className="flex-1 overflow-hidden">
-                    <p className="font-body text-body-lg text-on-surface truncate">archivist@vaultandvellum.io</p>
+                    <p className="font-body text-body-lg text-on-surface truncate">{user?.email ?? '—'}</p>
+                    {user?.name && (
+                      <p className="font-body text-body-sm text-on-surface-variant truncate">{user.name}</p>
+                    )}
                   </div>
                 </div>
               </section>
@@ -213,7 +219,11 @@ function AppShellInner() {
             {/* Footer */}
             <div className="p-lg bg-surface pt-md border-t border-surface-container-highest">
               <button
-                onClick={() => { closeSettings(); navigate('/'); }}
+                onClick={async () => {
+                  closeSettings();
+                  await logout();
+                  navigate('/');
+                }}
                 className="w-full bg-error text-on-error font-body font-medium py-3 rounded-lg hover:bg-error/90 transition-colors flex items-center justify-center gap-sm focus:outline-none focus:ring-2 focus:ring-error focus:ring-offset-2"
               >
                 <span className="material-symbols-outlined text-[20px]">logout</span>

@@ -16,8 +16,15 @@ export default function LoginView() {
     try {
       await login(email, password);
       navigate('/archive');
-    } catch {
-      setError('Invalid credentials. Please try again.');
+    } catch (err: unknown) {
+      const code = (err as { code?: string })?.code ?? '';
+      if (code === 'auth/invalid-credential' || code === 'auth/wrong-password' || code === 'auth/user-not-found') {
+        setError('Invalid email or password. Please try again.');
+      } else if (code === 'auth/too-many-requests') {
+        setError('Too many failed attempts. Please try again later.');
+      } else {
+        setError('Sign in failed. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }
