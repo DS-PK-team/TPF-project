@@ -199,11 +199,6 @@ W przypadku chęci zmiany konta/identyfikatora w przyszłości, zaktualizuj powy
 <!-- Dodaj screenshot heatmapy z Hotjar -->
 ![Hotjar heatmap](docs/screenshots/hotjar_heatmap.png)
 
-### Hotjar — nagrania sesji
-
-<!-- Dodaj screenshot listy nagrań z Hotjar -->
-![Hotjar recordings](docs/screenshots/hotjar_recordings.png)
-
 ---
 
 ## Deploy
